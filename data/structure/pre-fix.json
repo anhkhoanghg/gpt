@@ -1,0 +1,26 @@
+{
+  "reminder-prefix": [
+    "Remind me to",
+    "Alarm me to",
+    "Notify me to",
+    "I need to",
+    "I have to",
+    "Help me to remember",
+    "Set a reminder for",
+    "Set an alarm for",
+    "I am planning to",
+    "I want to achieve"
+  ],
+  "description-prefix": [
+    "I have a",
+    "I have an",
+    "I have",
+    "I need to complete",
+    "I got a",
+    "I got an",
+    "I got",
+    "I must finish",
+    "I have to finish",
+    "My goal is"
+  ]
+}
