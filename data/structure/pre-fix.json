@@ -1,15 +1,15 @@
 {
   "reminder-prefix": [
-    "Remind me to",
-    "Alarm me to",
-    "Notify me to",
-    "I need to",
-    "I have to",
-    "Help me to remember",
-    "Set a reminder for",
-    "Set an alarm for",
+    "remind me to",
+    "alarm me to",
+    "notify me to",
+    "i need to",
+    "i have to",
+    "help me to remember",
+    "set a reminder for",
+    "set an alarm for",
     "I am planning to",
-    "I want to achieve"
+    "I want to"
   ],
   "description-prefix": [
     "I have a",
