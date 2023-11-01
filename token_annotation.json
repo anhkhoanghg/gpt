@@ -1,0 +1,178 @@
+{
+  "level_1": {
+    "description": "Level 1: Không bị chứa bởi tag nào, gồm có 2 phần bắt đầu và kết thúc, chứa nhiều hơn 1 token đôi (token đôi: task có bắt đầu và kết thúc)",
+    "token": [
+      {
+        "value": "<s>",
+        "attribute": "start_string",
+        "description": "Bắt đầu của string"
+      },
+      {
+        "value": "</s>",
+        "attribute": "end_string",
+        "description": "Kết thúc của string"
+      }
+    ]
+  },
+  "level_2": {
+    "description": "Level 2: Có thể bị chứa bởi tag level 1, gồm có 2 phần bắt đầu và kết thúc, chứa nhiều hơn 1 token đôi",
+    "token": [
+      {
+        "value": "<prompt>",
+        "attribute": "begin_prompt",
+        "description": "Bắt đầu của input"
+      },
+      {
+        "value": "</prompt>",
+        "attribute": "end_prompt",
+        "description": "Kết thúc của input"
+      },
+      {
+        "value": "<task>",
+        "attribute": "start_task",
+        "description": "Bắt đầu của công việc"
+      },
+      {
+        "value": "</task>",
+        "attribute": "end_task",
+        "description": "Kết thúc của lệnh"
+      }
+    ]
+  },
+  "level_3": {
+    "description": "Level 3: Token đơn, chỉ chứa token thường",
+    "3.1": {
+      "description": "Token đơn thuộc task",
+      "token": [
+        {
+          "value": "<sum>",
+          "attribute": "summarize",
+          "description": "Tóm tắt"
+        },
+        {
+          "value": "<cate>",
+          "attribute": "category",
+          "description": "Loại công việc"
+        },
+        {
+          "value": "<prio>",
+          "attribute": "priority",
+          "description": "Độ ưu tiên, dựa theo deadline",
+          "value-range": {
+            "deferred": 1,
+            "low": 2,
+            "mid": 3,
+            "high": 4,
+            "urgent": 5
+          }
+        },
+        {
+          "value": "<diff>",
+          "attribute": "difficulty",
+          "description": "Độ khó, dựa vào độ khó tự động nhân bản công việc lên",
+          "value-range": {
+            "easy": 1,
+            "mid": 2,
+            "hard": 3
+          }
+        },
+        {
+          "value": "<imp>",
+          "attribute": "important",
+          "description": "Độ quan trọng, dựa theo tính chất của công việc để sắp xếp trước công việc cùng priority",
+          "value-range": {
+            "casual": 1,
+            "low": 2,
+            "mid": 3,
+            "high": 4,
+            "critical": 5
+          }
+        },
+        {
+          "value": "<status>",
+          "attribute": "status",
+          "description": "Single hoặc Daily",
+          "value-range": {
+            "single": 1,
+            "daily": 2,
+            "monthly": 3
+          }
+        },
+        {
+          "value": "<exp_min>",
+          "attribute": "expected_minute",
+          "description": "Thời gian xấp xĩ"
+        },
+        {
+          "value": "<totd>",
+          "attribute": "time_of_the_day",
+          "description": "Buổi xấp xỉ trong ngày, dựa theo tính chất công việc",
+          "value-range": {
+            "midnight": 1,
+            "morning": 2,
+            "noon": 3,
+            "evening": 4,
+            "night": 5
+          }
+        },
+        {
+          "value": "<spec_time>",
+          "attribute": "specific_time",
+          "description": "Thời gian cứng được người dùng cho trước"
+        },
+        {
+          "value": "<dow>",
+          "attribute": "day_of_week",
+          "description": "Ngày trong tuần",
+          "value-range": {
+            "sunday": "su",
+            "monday": "mo",
+            "tuesday": "tuesday",
+            "wednesday": "wed",
+            "friday": "fr",
+            "saturday": "sa"
+          }
+        },
+        {
+          "value": "<day>",
+          "attribute": "day",
+          "description": "Ngày cứng người dùng cho trước trong tháng hiện tại"
+        },
+        {
+          "value": "<month>",
+          "attribute": "month",
+          "description": "Tháng người dùng cho trước trong năm hiện tại",
+          "value-range": {
+            "January": 1,
+            "February": 2,
+            "March": 3,
+            "April": 4,
+            "May": 5,
+            "June": 6,
+            "July": 7,
+            "August": 8,
+            "September": 9,
+            "October": 10,
+            "November": 11,
+            "December": 12
+          }
+        },
+        {
+          "value": "<no_date>",
+          "attribute": "number_of_date",
+          "description": "Số ngày n+1 lặp lại của công việc, nếu bằng 0 thì lặp lại thêm 1 ngày"
+        },
+        {
+          "value": "<no_week>",
+          "attribute": "number_of_week",
+          "description": "Số tuần n+1 lặp lại của công việc, nếu bằng 0 thì lặp lại 1 tuần"
+        },
+        {
+          "value": "<no_month>",
+          "attribute": "number_of_month",
+          "description": "Số tháng n+1 lặp lại của công việc, nếu bằng 0 thì lặp lại trong vòng 1 tháng nhưng dựa theo độ khó của công việc"
+        }
+      ]
+    }
+  }
+}
