@@ -24,7 +24,7 @@ class TaskGenerator():
             "reminder-prefix": "r-pre",
             "description-prefix": "d-pre",
 
-            
+
             "activities": "act",
             "hour": "h",
             "timeOfDay": "tod",
@@ -154,7 +154,7 @@ class TaskGenerator():
     def random_day_with_word(self):
         # Generate a random number between 1 and 31
         random_number = random.randint(1, 31)
-        
+
         # Define a list of ordinal words for the days
         ordinal_words = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh",
                         "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth",
@@ -171,10 +171,10 @@ class TaskGenerator():
         return random.choice(list(self.month_values.keys()))
     def get_random_dow(self):
         return random.choice(list(self.dow_values.keys()))
-    
+
     def get_random_tod(self):
         return random.choice(list(self.tod_values.keys()))
-    
+
     def get_random_preposition(self):
         return random.choice(self.preposition)
     def get_random_prefix(self, category):
@@ -182,35 +182,35 @@ class TaskGenerator():
             return random.choice(self.reminder_prefix)
         else:
             return random.choice(self.description_prefix)
-        
+
     def generate_random_time(self):
         # Randomly choose between 12-hour format and 24-hour format
         format_choice = random.choice(['12-hour', '24-hour'])
-        
+
         if format_choice == '12-hour':
             # Generate a random hour from 1 to 12
             hour = random.randint(1, 12)
-            
+
             # Generate a random minute that is a multiple of 5 from 0 to 55
             minute = random.choice([0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55])
-            
+
             # Choose between 'AM' or 'PM' randomly
             am_pm = random.choice(['AM', 'PM'])
-            
+
             # Format the time as 'h AM' or 'h PM'
             time_24_hour = f"{hour + 12 if am_pm == 'PM' else hour:02d}:{minute:02d}:00"
             speechTime = f"{hour} {am_pm}"
         else:
             # Generate a random hour from 0 to 23 for 24-hour format
             hour = random.randint(0, 23)
-            
+
             # Generate a random minute that is a multiple of 5 from 0 to 55
             minute = random.choice([0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55])
-            
+
             # Format the time as 'hh:mm'
             time_24_hour = f"{hour:02d}:{minute:02d}:00"
             speechTime = f"{hour} o'clock"
-        
+
         return time_24_hour, speechTime
     def loadTokenAnnotation(self):
 
