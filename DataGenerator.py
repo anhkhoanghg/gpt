@@ -131,6 +131,11 @@ class TaskGenerator():
                             dow = self.get_random_dow()
                             sentence += dow + " "
                             task.day_of_week += f"{dow}"
+                        elif category == "day":
+                            day, ordinal_day = self.get_random_day_with_word()
+                            sentence += day + " "
+
+                            task.month += f"{day}"
                         elif category == "month":
                             month = self.get_random_month()
                             sentence += month + " "
@@ -151,7 +156,7 @@ class TaskGenerator():
             json.dump(data, json_file, indent=4)
 
         print(f'Data has been written to {outputDir}')
-    def random_day_with_word(self):
+    def get_random_day_with_word(self):
         # Generate a random number between 1 and 31
         random_number = random.randint(1, 31)
 
