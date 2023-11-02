@@ -107,7 +107,7 @@ class TaskGenerator():
                     data_dict = {}
                     task = Task()
                     sentence = ""
-                    for category in comb:
+                    for index, category in enumerate(comb):
                         if category == "r-pre":
                             prefix = self.get_random_prefix("reminder-prefix")
                             if prefix:
@@ -125,8 +125,21 @@ class TaskGenerator():
                             sentence += time + " "
                             task.summarize += f"{time}"
                             task.specific_time += f"{label}"
+                            
                         elif category == "prep":
-                            preposition = self.get_random_preposition()
+                            prep = self.randomPreposition(comb)
+                            if index < (len(comb)-1):
+                                next_cate = comb[index + 1]
+                                if next_cate == "h":
+                                    preposition = prep[0]
+                                if next_cate == "dow":
+                                    preposition = prep[1]
+                                if next_cate == "tod":
+                                    preposition = prep[2]
+                                if next_cate == "day":
+                                    preposition = prep[3]
+                                if next_cate == "month":
+                                    preposition = prep[4]
                             sentence += preposition + " "
                         elif category == "tod":
                             tod = self.get_random_tod()
@@ -146,9 +159,7 @@ class TaskGenerator():
                             month = self.get_random_month()
                             sentence += str(month) + " "
 
-                            task.month += f"{month}"
-
-                        task.status = "single"
+                            task.time_of_the_day += f"{dow}"
                     data_dict["input"] = sentence
                     data_dict["target"] = task.getTaskString()
                     data.append(data_dict)
@@ -185,41 +196,69 @@ class TaskGenerator():
 
     def get_random_dow(self):
         return random.choice(list(self.dow_values.keys()))
-
+    
     def get_random_tod(self):
         return random.choice(list(self.tod_values.keys()))
-
+    
     def get_random_preposition(self):
         return random.choice(self.preposition)
-
+    def randomPreposition(self, comb):
+        result = []
+        preposition = ["about","at","by","before","after"]
+        prep_h, prep_dow, prep_tod, prep_day, prep_month = None, None, None, None, None
+        prep_indices = []
+        for index, word in enumerate(comb):
+            if word == "prep":
+                prep_indices.append(index)
+        h_index = comb.index("h") if "h" in comb else -1
+        tod_index = comb.index("tod") if "tod" in comb else -1
+        dow_index = comb.index("dow") if "dow" in comb else -1
+        day_index = comb.index("day") if "day" in comb else -1
+        month_index = comb.index("month") if "month" in comb else -1
+        if len(prep_indices) >= 1:
+            if h_index == -1 or any((h_index-1) == index for index in prep_indices):
+                prep_h = random.choice(preposition)
+            if dow_index == -1 or any((h_index-1) == index for index in prep_indices):
+                prep_dow = "on"
+            if tod_index == -1 or any((tod_index-1) == index for index in prep_indices):
+                prep_tod = "in"    
+            if day_index == -1 or any((day_index-1) == index for index in prep_indices):
+                prep_day = "on"
+            if month_index == -1 or any((month_index-1) == index for index in prep_indices):
+                prep_month = "in" 
+        prep = [prep_h, prep_dow, prep_tod, prep_day, prep_month]
+        for var in prep:
+            result.append(var if var is not None else "")
+        return result
+  
     def get_random_prefix(self, category):
         if category == "reminder-prefix":
             return random.choice(self.reminder_prefix)
         else:
             return random.choice(self.description_prefix)
-
+        
     def generate_random_time(self):
         # Randomly choose between 12-hour format and 24-hour format
         format_choice = random.choice(['12-hour', '24-hour'])
-
+        
         if format_choice == '12-hour':
             # Generate a random hour from 1 to 12
             hour = random.randint(1, 12)
-
+            
             # Generate a random minute that is a multiple of 5 from 0 to 55
             minute = random.choice(
                 [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55])
 
             # Choose between 'AM' or 'PM' randomly
             am_pm = random.choice(['AM', 'PM'])
-
+            
             # Format the time as 'h AM' or 'h PM'
             time_24_hour = f"{hour + 12 if am_pm == 'PM' else hour:02d}:{minute:02d}:00"
             speechTime = f"{hour} {am_pm}"
         else:
             # Generate a random hour from 0 to 23 for 24-hour format
             hour = random.randint(0, 23)
-
+            
             # Generate a random minute that is a multiple of 5 from 0 to 55
             minute = random.choice(
                 [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55])
@@ -227,7 +266,7 @@ class TaskGenerator():
             # Format the time as 'hh:mm'
             time_24_hour = f"{hour:02d}:{minute:02d}:00"
             speechTime = f"{hour} o'clock"
-
+        
         return time_24_hour, speechTime
 
     def loadTokenAnnotation(self):
