@@ -9,8 +9,6 @@ class Task:
 
 
     def redetermine(self):
-
-
         time_pattern = r'^\d{2}:\d{2}:\d{2}$'  # Pattern for "hh:mm:ss" format
         if re.match(time_pattern, self.specific_time):
                 hours, minutes, seconds = map(int, self.specific_time.split(":"))
