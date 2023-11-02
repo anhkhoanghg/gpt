@@ -9,41 +9,133 @@
       "combination": ["r-pre", "act", "h"]
     },
     {
+      "example": "Remind me to buy groceries next 3 days.",
+      "combination": ["r-pre", "act", "no_date"]
+    },
+    {
+      "example": "Remind me to buy groceries next 2 weeks.",
+      "combination": ["r-pre", "act", "no_week"]
+    },
+    {
+      "example": "Remind me to buy groceries next 2 months.",
+      "combination": ["r-pre", "act", "no_month"]
+    },
+    {
+      "example": "Remind me to buy groceries for the next 3 days.",
+      "combination": ["r-pre", "act", "prep", "no_date"]
+    },
+    {
+      "example": "Remind me to buy groceries for the next 2 weeks.",
+      "combination": ["r-pre", "act", "prep", "no_week"]
+    },
+    {
+      "example": "Remind me to buy groceries for the next 2 months.",
+      "combination": ["r-pre", "act", "prep", "no_month"]
+    },
+    {
       "example": "Remind me to buy groceries at 5pm.",
       "combination": ["r-pre", "act", "prep", "h"]
     },
     {
-      "example": "Remind me to buy groceries after 5pm.",
-      "combination": ["r-pre", "act", "conj", "h"]
+      "example": "Remind me to buy groceries on 19.",
+      "combination": ["r-pre", "act", "prep", "day"]
+    },
+    {
+      "example": "Remind me to buy groceries on 19 October.",
+      "combination": ["r-pre", "act", "prep", "day", "month"]
+    },
+    {
+      "example": "Remind me to buy groceries on 19 in October.",
+      "combination": ["r-pre", "act", "prep", "day", "prep", "month"]
     },
     {
       "example": "Remind me to buy groceries at 5pm tuesday.",
       "combination": ["r-pre", "act", "prep", "h", "dow"]
     },
     {
-      "example": "Remind me to buy groceries after 5pm tuesday.",
-      "combination": ["r-pre", "act", "conj", "h", "dow"]
+      "example": "Remind me to buy groceries at 5pm on tuesday.",
+      "combination": ["r-pre", "act", "prep", "h", "prep", "dow"]
     },
     {
-      "example": "Remind me to buy groceries after 5pm on tuesday.",
-      "combination": ["r-pre", "act", "conj", "h", "prep", "dow"]
-    },
-    {
-      "example": "Remind me to buy groceries after 5pm on tuesday october.",
-      "combination": ["r-pre", "act", "conj", "h", "prep", "dow", "month"]
+      "example": "Remind me to buy groceries at 5pm on tuesday october.",
+      "combination": ["r-pre", "act", "prep", "h", "prep", "dow", "month"]
     },
     {
       "example": "Remind me to buy groceries after 5pm on tuesday of october.",
       "combination": [
         "r-pre",
         "act",
-        "conj",
+        "prep",
         "h",
         "prep",
         "dow",
         "prep",
         "month"
       ]
+    },
+    {
+      "example": "I have a meeting",
+      "combination": ["d-pre", "n"]
+    },
+    {
+      "example": "I have a meeting 5pm.",
+      "combination": ["d-pre", "n", "h"]
+    },
+    {
+      "example": "I have a meeting next 2 days.",
+      "combination": ["d-pre", "n", "no_date"]
+    },
+    {
+      "example": "I have a meeting next 3 weeks.",
+      "combination": ["d-pre", "act", "no_week"]
+    },
+    {
+      "example": "I have a meeting next 2 months.",
+      "combination": ["d-pre", "act", "no_month"]
+    },
+    {
+      "example": "I have a meeting for the next 2 days.",
+      "combination": ["d-pre", "n", "prep", "no_date"]
+    },
+    {
+      "example": "I have a meeting for the next 3 weeks.",
+      "combination": ["d-pre", "n", "prep", "no_week"]
+    },
+    {
+      "example": "I have a meeting for the next 2 months.",
+      "combination": ["d-pre", "n", "prep", "no_month"]
+    },
+    {
+      "example": "I have a meeting at 5pm.",
+      "combination": ["d-pre", "n", "prep", "h"]
+    },
+    {
+      "example": "I have a meeting on 19.",
+      "combination": ["d-pre", "n", "prep", "day"]
+    },
+    {
+      "example": "I have a meeting on 19 October.",
+      "combination": ["d-pre", "n", "prep", "day", "month"]
+    },
+    {
+      "example": "I have a meeting on 19 in October.",
+      "combination": ["d-pre", "n", "prep", "day", "prep", "month"]
+    },
+    {
+      "example": "I have a meeting at 5pm tuesday.",
+      "combination": ["d-pre", "n", "prep", "h", "dow"]
+    },
+    {
+      "example": "I have a meeting at 5pm on tuesday.",
+      "combination": ["d-pre", "n", "prep", "h", "prep", "dow"]
+    },
+    {
+      "example": "I have a meeting at 5pm on tuesday october.",
+      "combination": ["d-pre", "n", "prep", "h", "prep", "dow", "month"]
+    },
+    {
+      "example": "I have a meeting after 5pm on tuesday of october.",
+      "combination": ["d-pre", "n", "prep", "h", "prep", "dow", "prep", "month"]
     }
   ]
 }

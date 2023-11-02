@@ -2,9 +2,11 @@ import os
 import json
 import random
 from task import Task
+
+
 class TaskGenerator():
     def __init__(self):
-        self.pathToCoreDataDir = "./data/activities"
+        self.pathToCoreDataDir = "./data/activities-verbs"
         self.pathToStructureDir = "./data/structure"
         self.token_annotation_path = "./token_annotation.json"
         self.coreData = self.loadCoreData()
@@ -24,19 +26,20 @@ class TaskGenerator():
             "reminder-prefix": "r-pre",
             "description-prefix": "d-pre",
 
-
             "activities": "act",
             "hour": "h",
             "timeOfDay": "tod",
             "dayOfWeek": "dow",
             "day": "day",
             "month": "month",
+            "no_date": "no_date",
+            "no_week": "no_week",
+            "no_month": "no_month",
             "preposition": "prep",
             "conjunction": "conj"
         }
 
         self.combination = self.loadCombination()
-
 
     def loadCoreData(self):
         json_data = {}
@@ -47,6 +50,7 @@ class TaskGenerator():
                     if isinstance(data, dict):
                         json_data.update(data)
         return json_data
+
     def loadPrefix(self):
 
         with open(f"{self.pathToStructureDir}/pre-fix.json", "r") as json_file:
@@ -54,6 +58,7 @@ class TaskGenerator():
             reminder_prefix = data["reminder-prefix"]
             description_prefix = data["description-prefix"]
         return reminder_prefix, description_prefix
+
     def loadConjunction(self):
         conjunctions = []
 
@@ -62,7 +67,7 @@ class TaskGenerator():
             conjunctions = data.get("conjunctions", [])
 
         return conjunctions
-    
+
     def loadPreposition(self):
         preposition = []
 
@@ -70,7 +75,8 @@ class TaskGenerator():
             data = json.load(json_file)
             preposition = data.get("preposition", [])
 
-        return preposition  
+        return preposition
+
     def loadCombination(self):
         combinations_list = []
 
@@ -84,12 +90,11 @@ class TaskGenerator():
 
         return combinations_list
 
-
     def countQuantityOfEachKeys(self):
         for key, sub_array in self.coreData.items():
             count = len(sub_array)
             print(f"Key: {key}, Number of elements: {count}")
-    
+
     def generateTask(self):
         data = []
         total_iterations = len(self.coreData) * \
@@ -108,7 +113,8 @@ class TaskGenerator():
                             if prefix:
                                 sentence += prefix + " "
                         elif category == "d-pre":
-                            prefix = self.get_random_prefix("description-prefix")
+                            prefix = self.get_random_prefix(
+                                "description-prefix")
                             if prefix:
                                 sentence += prefix + " "
                         elif category == "act":  # For "activities"
@@ -131,6 +137,11 @@ class TaskGenerator():
                             dow = self.get_random_dow()
                             sentence += dow + " "
                             task.day_of_week += f"{dow}"
+                        elif category == "day":
+                            day, ordinal_day = self.get_random_day_with_word()
+                            sentence += day + " "
+
+                            task.month += f"{day}"
                         elif category == "month":
                             month = self.get_random_month()
                             sentence += month + " "
@@ -151,24 +162,27 @@ class TaskGenerator():
             json.dump(data, json_file, indent=4)
 
         print(f'Data has been written to {outputDir}')
-    def random_day_with_word(self):
+
+    def get_random_day_with_word(self):
         # Generate a random number between 1 and 31
         random_number = random.randint(1, 31)
 
         # Define a list of ordinal words for the days
         ordinal_words = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh",
-                        "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth",
-                        "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth",
-                        "nineteenth", "twentieth", "twenty-first", "twenty-second", "twenty-third",
-                        "twenty-fourth", "twenty-fifth", "twenty-sixth", "twenty-seventh", "twenty-eighth",
-                        "twenty-ninth", "thirtieth", "thirty-first"]
+                         "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth",
+                         "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth",
+                         "nineteenth", "twentieth", "twenty-first", "twenty-second", "twenty-third",
+                         "twenty-fourth", "twenty-fifth", "twenty-sixth", "twenty-seventh", "twenty-eighth",
+                         "twenty-ninth", "thirtieth", "thirty-first"]
 
         # Get the ordinal word corresponding to the random number
         ordinal_word = ordinal_words[random_number - 1]
 
         return random_number, ordinal_word
+
     def get_random_month(self):
         return random.choice(list(self.month_values.keys()))
+
     def get_random_dow(self):
         return random.choice(list(self.dow_values.keys()))
 
@@ -177,6 +191,7 @@ class TaskGenerator():
 
     def get_random_preposition(self):
         return random.choice(self.preposition)
+
     def get_random_prefix(self, category):
         if category == "reminder-prefix":
             return random.choice(self.reminder_prefix)
@@ -192,7 +207,8 @@ class TaskGenerator():
             hour = random.randint(1, 12)
 
             # Generate a random minute that is a multiple of 5 from 0 to 55
-            minute = random.choice([0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55])
+            minute = random.choice(
+                [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55])
 
             # Choose between 'AM' or 'PM' randomly
             am_pm = random.choice(['AM', 'PM'])
@@ -205,13 +221,15 @@ class TaskGenerator():
             hour = random.randint(0, 23)
 
             # Generate a random minute that is a multiple of 5 from 0 to 55
-            minute = random.choice([0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55])
+            minute = random.choice(
+                [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55])
 
             # Format the time as 'hh:mm'
             time_24_hour = f"{hour:02d}:{minute:02d}:00"
             speechTime = f"{hour} o'clock"
 
         return time_24_hour, speechTime
+
     def loadTokenAnnotation(self):
 
         with open(self.token_annotation_path, 'r', encoding="utf-8") as file:
@@ -227,6 +245,7 @@ class TaskGenerator():
         dow_values = level_3_data["3.1"]["token"][9]["value-range"]
         month_values = level_3_data["3.1"]["token"][11]["value-range"]
         return priority_values, difficulty_values, important_values, status_values, totd_values, dow_values, month_values
+
 
 gen = TaskGenerator()
 gen.generateTask()
