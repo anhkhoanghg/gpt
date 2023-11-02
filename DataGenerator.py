@@ -139,12 +139,7 @@ class TaskGenerator():
                             task.day_of_week += f"{dow}"
                         elif category == "day":
                             day, ordinal_day = self.get_random_day_with_word()
-                            sentence += day + " "
-
-                            task.month += f"{day}"
-                        elif category == "day":
-                            day, ordinal_day = self.get_random_day_with_word()
-                            sentence += day + " "
+                            sentence += str(day) + " "
 
                             task.month += f"{day}"
                         elif category == "month":
@@ -168,7 +163,7 @@ class TaskGenerator():
 
         print(f'Data has been written to {outputDir}')
 
-    def random_day_with_word(self):
+    def get_random_day_with_word(self):
         # Generate a random number between 1 and 31
         random_number = random.randint(1, 31)
 
