@@ -102,7 +102,7 @@ class TaskGenerator():
                     data_dict = {}
                     task = Task()
                     sentence = ""
-                    for category in comb:
+                    for index, category in enumerate(comb):
                         if category == "r-pre":
                             prefix = self.get_random_prefix("reminder-prefix")
                             if prefix:
@@ -119,8 +119,21 @@ class TaskGenerator():
                             sentence += time + " "
                             task.summarize += f"{time}"
                             task.specific_time += f"{label}"
+                            
                         elif category == "prep":
-                            preposition = self.get_random_preposition()
+                            prep = self.randomPreposition(comb)
+                            if index < (len(comb)-1):
+                                next_cate = comb[index + 1]
+                                if next_cate == "h":
+                                    preposition = prep[0]
+                                if next_cate == "dow":
+                                    preposition = prep[1]
+                                if next_cate == "tod":
+                                    preposition = prep[2]
+                                if next_cate == "day":
+                                    preposition = prep[3]
+                                if next_cate == "month":
+                                    preposition = prep[4]
                             sentence += preposition + " "
                         elif category == "tod":
                             tod = self.get_random_tod()
@@ -163,7 +176,7 @@ class TaskGenerator():
     def randomPreposition(self, comb):
         result = []
         preposition = ["about","at","by","before","after"]
-        prep_h, prep_dow, prep_tod, prep_day, prep_month = None
+        prep_h, prep_dow, prep_tod, prep_day, prep_month = None, None, None, None, None
         prep_indices = []
         for index, word in enumerate(comb):
             if word == "prep":
