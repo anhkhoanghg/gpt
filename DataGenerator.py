@@ -35,7 +35,6 @@ class TaskGenerator():
 
         self.combination = self.loadCombination()
 
-
     def loadCoreData(self):
         json_data = {}
         for filename in os.listdir(self.pathToCoreDataDir):
@@ -52,14 +51,15 @@ class TaskGenerator():
             reminder_prefix = data["reminder-prefix"]
             description_prefix = data["description-prefix"]
         return reminder_prefix, description_prefix
+    
+    
     def loadConjunction(self):
         conjunctions = []
 
         with open(f"{self.pathToStructureDir}/conjunction.json", "r") as json_file:
             data = json.load(json_file)
             conjunctions = data.get("conjunctions", [])
-
-        return conjunctions
+        return conjunctions     
     
     def loadPreposition(self):
         preposition = []
@@ -69,6 +69,8 @@ class TaskGenerator():
             preposition = data.get("preposition", [])
 
         return preposition  
+        
+        
     def loadCombination(self):
         combinations_list = []
 
@@ -158,6 +160,35 @@ class TaskGenerator():
     
     def get_random_preposition(self):
         return random.choice(self.preposition)
+    def randomPreposition(self, comb):
+        result = []
+        preposition = ["about","at","by","before","after"]
+        prep_h, prep_dow, prep_tod, prep_day, prep_month = None
+        prep_indices = []
+        for index, word in enumerate(comb):
+            if word == "prep":
+                prep_indices.append(index)
+        h_index = comb.index("h") if "h" in comb else -1
+        tod_index = comb.index("tod") if "tod" in comb else -1
+        dow_index = comb.index("dow") if "dow" in comb else -1
+        day_index = comb.index("day") if "day" in comb else -1
+        month_index = comb.index("month") if "month" in comb else -1
+        if len(prep_indices) >= 1:
+            if h_index == -1 or any((h_index-1) == index for index in prep_indices):
+                prep_h = random.choice(preposition)
+            if dow_index == -1 or any((h_index-1) == index for index in prep_indices):
+                prep_dow = "on"
+            if tod_index == -1 or any((tod_index-1) == index for index in prep_indices):
+                prep_tod = "in"    
+            if day_index == -1 or any((day_index-1) == index for index in prep_indices):
+                prep_day = "on"
+            if month_index == -1 or any((month_index-1) == index for index in prep_indices):
+                prep_month = "in" 
+        prep = [prep_h, prep_dow, prep_tod, prep_day, prep_month]
+        for var in prep:
+            result.append(var if var is not None else "")
+        return result
+  
     def get_random_prefix(self, category):
         if category == "reminder-prefix":
             return random.choice(self.reminder_prefix)

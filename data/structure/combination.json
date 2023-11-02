@@ -26,18 +26,18 @@
     },
     {
       "example": "Remind me to buy groceries after 5pm on tuesday.",
-      "combination": ["r-pre", "act", "conj", "h", "prep", "dow"]
+      "combination": ["r-pre", "act", "prep", "h", "prep", "dow"]
     },
     {
       "example": "Remind me to buy groceries after 5pm on tuesday october.",
-      "combination": ["r-pre", "act", "conj", "h", "prep", "dow", "month"]
+      "combination": ["r-pre", "act", "prep", "h", "prep", "dow", "month"]
     },
     {
       "example": "Remind me to buy groceries after 5pm on tuesday of october.",
       "combination": [
         "r-pre",
         "act",
-        "conj",
+        "prep",
         "h",
         "prep",
         "dow",
