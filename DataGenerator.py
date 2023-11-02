@@ -154,10 +154,10 @@ class TaskGenerator():
                             day, ordinal_day = self.get_random_day_with_word()
                             sentence += str(day) + " "
 
-                            task.month += f"{day}"
+                            task.day += f"{day}"
                         elif category == "month":
-                            dow = self.get_random_month()
-                            sentence += dow + " "
+                            month = self.get_random_month()
+                            sentence += str(month) + " "
 
                             task.time_of_the_day += f"{dow}"
                     data_dict["input"] = sentence
