@@ -1,35 +1,19 @@
 {
     "spiritual":
     [
-        "Attending religious services",
-        "Going to church",
-        "Going to temple",
-        "Going to mosque",
-        "Going to synagogue",
-        "Attending Hindu rituals",
-        "Participating in Native American ceremonies",
-        "Attending spiritual retreats",
-        "Going on religious pilgrimages",
-        "Praying",
-        "Reciting blessings",
-        "Studying holy scriptures",
-        "Listening to sermons",
-        "Joining a prayer circle",
-        "Fasting for religious reasons",
-        "Making religious donations",
-        "Volunteering for faith-based service",
+        "religious services",
+        "church",
+        "temple",
+        "mosque",
+        "synagogue",
+        "Hindu rituals",
+        "spiritual retreats",
+        "praying",
+        "reciting blessings",
+        "a prayer circle",
+        "a religious donation",
         "Feeding the homeless",
-        "Donating to religious charities",
-        "Visiting the sick and elderly",
-        "Providing religious education",
-        "Sharing faith with others",
-        "Creating religious art",
-        "Celebrating religious festivals",
-        "Preparing religious meals",
-        "Giving spiritual gifts",
-        "Sending religious greeting cards",
-        "Decorating for religious occasions",
-        "Lighting candles and incense"
+        "religious charities"
       ]
       
 }
