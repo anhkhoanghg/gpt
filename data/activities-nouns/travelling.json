@@ -1,27 +1,23 @@
 {
     "travelling":
     [
-        "Booking flights and accommodations",
-        "Researching destinations",
-        "Planning itineraries",
-        "Packing suitcases",
-        "Getting travel insurance",
-        "Obtaining travel visas and documents",
-        "Exchanging currency",
-        "Downloading maps, translators, and apps",
-        "Touring landmarks and attractions",
-        "Taking tours",
-        "Exploring museums and galleries",
-        "Trying local cuisine",
-        "Shopping for souvenirs",
-        "Hiking and exploring nature",
-        "Relaxing on the beach",
-        "Participating in water sports",
-        "Trying adventure activities",
-        "Experiencing cultural events",
-        "Meeting locals",
-        "Learning about history and traditions",
-        "Planning for travel",
-        "Listing needed supplies"
+        "booking flights",
+        "researching destinations",
+        "planning itineraries",
+        "packing suitcases",
+        "getting travel insurance",
+        "obtaining travel visas",
+        "exchanging currency",
+        "taking tours",
+        "trying local cuisine",
+        "shopping for souvenirs",
+        "hiking and exploring nature",
+        "relaxing on the beach",
+        "participating in water sports",
+        "trying adventure activities",
+        "meeting locals",
+        "planning for travel",
+        "listing needed supplies"
     ]
+    
 }
