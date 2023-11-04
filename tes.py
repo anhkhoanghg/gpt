@@ -16,117 +16,64 @@
 #   print(chunk)
 
 import spacy
+from datetime import datetime as dt
+import parsedatetime as pdt
+class GetDateTime():
+    def __init__(self):
+        self.nlp = spacy.load("en_core_web_sm")
+    
+    def insert_str(self, string, str_to_insert, index):
+        return string[:index] + str_to_insert + string[index:]
+    
+    def getDateTimeinText(self, text):
+        doc = self.nlp(text)
+        result = ""
+        for ent in doc.ents:
+            if ent.label_ in ["DATE", "TIME"]:
+                print(f"Entity: {ent.text}, Label: {ent.label_}")
+                if ent.label_ == "DATE":
+                    result = self.insert_str(result, " "+ent.text, len(result))
+                elif ent.label_ == "TIME":
+                    result = self.insert_str(result, ent.text , 0)
+        return result
 
-# Load English tokenizer, tagger, parser and NER
-nlp = spacy.load("en_core_web_sm")  # Load English language model
+    def instrucadeclare(self, text):
+        doc = self.nlp(text)
 
-data = {
-    "edu-activities": [
-        "Go to school",
-        "Go to university",
-        "Complete an essays",
-        "Study for final examinations",
-        "Repair for the next examinations",
-        "Meet with a teacher for extra help",
-        "Join a school club",
-        "Attend a school dance",
-        "Study for upcoming exams",
-        "Join a school sports team",
-        "Use a computer for research",
-        "Meet with a school counselor",
-        "Help with school library activities",
-        "Reading textbooks and class materials",
-        "Writing essays, reports, and papers",
-        "Studying and reviewing notes",
-        "Attending lectures and classes",
-        "Participating in discussions and seminars",
-        "Taking exams and quizzes",
-        "Doing homework assignments",
-        "Completing worksheets and workbooks",
-        "Working on group projects",
-        "Making flashcards and study guides",
-        "Doing mathematical",
-        "Performing lab experiments",
-        "Analyzing literature and texts",
-        "Learning vocabularies",
-        "Studying maps, charts, and diagrams",
-        "Memorizing facts, formulas, and concepts",
-        "Taking practice tests and mock exams",
-        "Meeting with study groups and tutors",
-        "Preparing presentations",
-        "Read a chapter from book",
-        "Watch a documentary",
-        "Practice a foreign language",
-        "Solve a crossword puzzle",
-        "Listen to an educational podcast",
-        "Research a historical event",
-        "Study a new scientific concept",
-        "Review and organize class notes",
-        "Explore an art history topic",
-        "Watch a TED Talk",
-        "Try a new math problem",
-        "Learn a new recipe and cook a meal",
-        "Practice meditation or mindfulness",
-        "Explore a new coding concept",
-        "Review the periodic table of elements",
-        "Study a world geography topic",
-        "Learn about a famous philosopher",
-        "Study the basics of astronomy",
-        "Explore a topic in psychology",
-        "Practice a musical instrument",
-        "Research a famous historical figure",
-        "Watch a tutorial on a new software tool",
-        "Learn about a new culture's traditions",
-        "Learn about a recent scientific discovery",
-        "Study a famous piece of literature",
-        "Practice speed reading techniques",
-        "Explore a new architectural style",
-        "Learn about a famous mathematician",
-        "Research a contemporary world issue",
-        "Study a topic in environmental science",
-        "Learn about a famous composer",
-        "Watch a wildlife documentary",
-        "Study a new language's basic phrases",
-        "Explore a new dance style",
-        "Learn about a famous scientist",
-        "Research a space exploration mission",
-        "Study a famous historical speech",
-        "Watch a historical reenactment",
-        "Learn about a famous inventor",
-        "Study a world religion or belief system",
-        "Research a famous explorer",
-        "Explore a new political ideology",
-        "Study a topic in sociology",
-        "Practice basic origami",
-        "Watch a classic film or documentary",
-        "Learn about a famous musician or band",
-        "Research a new art movement",
-        "Study a historical war or battle",
-        "Explore a topic in ethics",
-        "Learn about a significant medical breakthrough",
-        "Study a famous landmark",
-        "Research a cultural festival",
-        "Study a famous sculpture or statue",
-        "Research a famous artwork's history",
-        "Study a famous painting technique",
-        "Watch a classic ballet performance",
-        "Learn about a famous poet",
-        "Study a famous architectural structure",
-        "Explore a topic in anthropology",
-        "Research a natural disaster or phenomenon",
-        "Explore a topic in performing arts",
-        "Learning foreign languages"
-    ]
-}
+        # Initialize lists to store instructions and declarations
+        instructions = []
+        declarations = []
 
-noun_activities = []
+        # Iterate through the sentences in the text
+        for sent in doc.sents:
+            sentence_text = sent.text
+            # Check if the sentence contains certain keywords
+            if "remind" in sentence_text:
+                instructions.append(sentence_text)
+            else:
+                declarations.append(sentence_text)
 
-# Process each activity and extract nouns
-for activity in data["edu-activities"]:
-    doc = nlp(activity)
-    nouns = [token.text for token in doc if token.pos_ == "NOUN"]
-    noun_activities.append(" ".join(nouns))
+        # Print the identified instructions and declarations
+        print("Instructions:")
+        for instruction in instructions:
+            print(instruction)
 
-# Print the converted noun activities
-for noun_activity in noun_activities:
-    print(noun_activity)
+        print("\nDeclarations:")
+        for declaration in declarations:
+            print(declaration)
+        return instructions, declarations
+            
+    # text = "set a reminder for Meeting with study groups and tutors as 2 AM "
+    # instrucadeclare(text)
+    def getRemindTime(self, time_string):
+        cal = pdt.Calendar()
+        now = dt.now()
+        print("now: %s" % now)
+        print("%s:\t%s" % (time_string, cal.parseDT(time_string, now)[0])) 
+        return cal.parseDT(time_string, now)[0]
+    
+getTime = GetDateTime()
+text = "set a reminder for Meeting with study groups and tutors at 2 PM next Friday "
+dateTime = getTime.getDateTimeinText(text)
+print(dateTime)
+remindTime = getTime.getRemindTime(dateTime)

@@ -1,7 +1,7 @@
 {
   "edu-activities": 
   [
-    "a school",
+    ["a school", 1, 160],
     "a university",
     "an essay",
     "a final examination",
