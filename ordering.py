@@ -3,9 +3,10 @@ import datetime
 from datetime import datetime, timedelta, time
 
 target_text = [
-    "<sum>Prepare presentation for 18 this month<cate>Work<prio>3<diff>4<imp>4<status>0<exp_min>120<totd>2<spec_time>null<dow>null<day>18<month>null<no_date>3<no_week>null<no_month>0",
-    "<sum>Finish coding assignment before tommorow<cate>Study<prio>2<diff>1<imp>1<status>0<exp_min>180<totd>2<spec_time>null<dow>null<day>null<month>null<no_date>2<no_week>null<no_month>null",
-    "<sum>Buy groceries in Thursday<cate>Errands<prio>5<diff>5<imp>3<status>0<exp_min>60<totd>2<spec_time>null<dow>5<day>null<month>null<no_date>1<no_week>null<no_month>null"
+    "<sum>Prepare presentation for 18 this month<cate>Work<prio>3<diff>4<imp>4<freq>0<exp_min>120<totd>morning<spec_time>null<dow>null<day>18<month>null<no_date>3<no_week>null<no_month>0",
+    "<sum>Finish coding assignment before tommorow<cate>Study<prio>2<diff>1<imp>1<freq>0<exp_min>180<totd>morning<spec_time>null<dow>null<day>null<month>null<no_date>2<no_week>null<no_month>null",
+    "<sum>Buy groceries in Thursday<cate>Errands<prio>5<diff>5<imp>3<freq>0<exp_min>60<totd>morning<spec_time>null<dow>5<day>null<month>null<no_date>1<no_week>null<no_month>null",
+    "<sum>Read a chapter from book 5 PM<cate><prio><diff><imp><freq>1<exp_min><totd><spec_time>17:30:00<dow>monday<day><month>5<no_date><no_week><no_month>"
 ]
 
 # sắp xếp task theo priority
@@ -25,7 +26,11 @@ def task_filter(task_in_same_period : list, start_time, end_time):
     filtered_task = []
 
     for task in task_in_same_period:
-        task_time = task.expected_minutes
+        try:
+            task_time = int(task.expected_minute)
+        except:
+            task_time = 60
+            
         if start_time + task_time > end_time:
             filtered_task += [task]
             continue
@@ -66,9 +71,13 @@ def to_do_list_in_day(task_list):
                    
                     [], []]
     filtered_task = [[], [], [], [], []]
-
-    for task in task_list:
-        tasks[task.time_of_day] += [task]
+    mapping = { 'midnight':0,
+                'morning':1,
+                'noon':2,
+                'evening':3,
+                'night':4}
+    for task in task_list:          
+        tasks[mapping[task.time_of_the_day]] += [task]
     
     start_time = [0, 240, 480, 720, 960, 1200] 
     end_time   = [240, 480, 720, 960, 1200, 1440]
@@ -110,7 +119,11 @@ def process(tasks):
         st = start_time[i]
         for task in tasks[i]:
             ret_dict[str(to_hour(st))] = task.id
-            st += task.expected_minutes
+            try:
+                exp_minute = int(task.expected_minute)
+            except:
+                exp_minute = 60
+            st += exp_minute
 
     return ret_dict
 

@@ -197,10 +197,10 @@ class TaskGenerator():
         return random_number, ordinal_word
 
     def get_random_month(self):
-        return random.choice(list(self.month_values.keys()))
+        return random.choice(list(self.month_values.values()))
 
     def get_random_dow(self):
-        return random.choice(list(self.dow_values.keys()))
+        return random.choice(list(self.dow_values.values()))
 
     def get_random_tod(self):
         return random.choice(list(self.tod_values.keys()))
