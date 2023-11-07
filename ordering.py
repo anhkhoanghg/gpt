@@ -79,10 +79,11 @@ def to_do_list_in_day(task_list):
     for task in task_list:          
         tasks[mapping[task.time_of_the_day]] += [task]
     
-    start_time = [0, 240, 480, 720, 960, 1200] 
-    end_time   = [240, 480, 720, 960, 1200, 1440]
+    start_time = [0, 300, 720, 960, 1200, 1200] 
+    end_time   = [300, 720, 960, 1200, 1200, 1440]
+    custome_delta = [0, 60, 0, 0, 0, 0] 
     for i in range(0, 5):
-        remain_task[i], filtered_task[i] = task_filter(tasks[i], start_time[i], end_time[i])
+        remain_task[i], filtered_task[i] = task_filter(tasks[i], start_time[i] + custome_delta[i], end_time[i])
 
     return remain_task, filtered_task
 
@@ -114,9 +115,10 @@ def to_hour(minutes):
 
 def process(tasks):
     ret_dict = {}
-    start_time = [0, 240, 480, 720, 960, 1200] 
+    start_time = [0, 300, 720, 960, 1200, 1200] 
+    custome_delta = [0, 60, 0, 0, 0, 0]
     for i in range(0, 5):
-        st = start_time[i]
+        st = start_time[i] + custome_delta[i]
         for task in tasks[i]:
             ret_dict[str(to_hour(st))] = task.id
             try:

@@ -1,23 +1,23 @@
 {
     "travelling":
     [
-        "booking flights",
-        "researching destinations",
-        "planning itineraries",
-        "packing suitcases",
-        "getting travel insurance",
-        "obtaining travel visas",
-        "exchanging currency",
-        "taking tours",
-        "trying local cuisine",
-        "shopping for souvenirs",
-        "hiking and exploring nature",
-        "relaxing on the beach",
-        "participating in water sports",
-        "trying adventure activities",
-        "meeting locals",
-        "planning for travel",
-        "listing needed supplies"
+        ["booking flights", 3, 30],
+        ["researching destinations", 3, 60],
+        ["planning itineraries", 3, 60],
+        ["packing suitcases", 3, 60],
+        ["getting travel insurance", 3, 30],
+        ["obtaining travel visas", 3, 60],
+        ["exchanging currency", 2, 30],
+        ["taking tours", 2, 120],
+        ["trying local cuisine", 2, 60],
+        ["shopping for souvenirs", 2, 60],
+        ["hiking and exploring nature", 2, 240],
+        ["relaxing on the beach", 2, 240],
+        ["participating in water sports", 2, 120],
+        ["trying adventure activities", 2, 120],
+        ["meeting locals", 2, 120],
+        ["planning for travel", 2, 60],
+        ["listing needed supplies", 2, 30]
     ]
     
 }

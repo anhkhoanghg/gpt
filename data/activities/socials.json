@@ -1,27 +1,27 @@
 {
     "social":
     [
-        "Attending a birthday party",
-        "Celebrating a wedding",
-        "Attending a family reunion",
-        "Participating in a baby shower",
-        "Going on a double date",
-        "Hosting a dinner party",
-        "Attending a holiday gathering",
-        "Going to a themed costume party",
-        "Participating in a karaoke night",
-        "Going to a local fair or carnival",
-        "Participating in a charity run/walk",
-        "Joining club",
-        "Participating in a neighborhood cleanup",
-        "Attending a cultural event",
-        "Joining a photography club",
-        "Going to a wine tasting event",
-        "Participating in a charity event",
-        "Attending a volunteer opportunity",
-        "Participating in a support group",
-        "Have meeting with company",
-        "Have drinks with friends"
+      ["Attending a birthday party", 3, 120],
+      ["Celebrating a wedding", 3, 240],
+      ["Attending a family reunion", 3, 180],
+      ["Participating in a baby shower", 3, 120],
+      ["Going on a double date", 3, 180],
+      ["Hosting a dinner party", 3, 120],
+      ["Attending a holiday gathering", 3, 180],
+      ["Going to a themed costume party", 3, 180],
+      ["Participating in a karaoke night", 3, 120],
+      ["Going to a local fair or carnival", 3, 240],
+      ["Participating in a charity run/walk", 3, 180],
+      ["Joining a club", 3, 60],
+      ["Participating in a neighborhood cleanup", 3, 120],
+      ["Attending a cultural event", 3, 180],
+      ["Joining a photography club", 3, 60],
+      ["Going to a wine tasting event", 3, 120],
+      ["Participating in a charity event", 3, 240],
+      ["Attending a volunteer opportunity", 3, 180],
+      ["Participating in a support group", 3, 120],
+      ["Have a meeting with a company", 3, 60],
+      ["Have drinks with friends", 3, 120]
       ]
       
 }

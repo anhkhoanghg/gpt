@@ -1,10 +1,10 @@
 {
     "volenteering":
     [
-        "Supporting children's hospital",
-        "Blood donation",
-        "Organizing community clean-up events",
-        "Volunteering for disaster relief efforts",
-        "Joining healthcare missions"
+        ["Supporting children's hospital", 3, 240],
+        ["Blood donation", 3, 60],
+        ["Organizing community clean-up events", 2, 120],
+        ["Volunteering for disaster relief efforts", 2, 240],
+        ["Joining healthcare missions", 2, 240]
     ]
 }

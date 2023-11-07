@@ -1,27 +1,27 @@
 {
     "social":
     [
-      "a birthday party",
-      "a wedding",
-      "a family reunion",
-      "a baby shower",
-      "a double date",
-      "a dinner party",
-      "a holiday gathering",
-      "a themed costume party",
-      "a karaoke night",
-      "a local fair or carnival",
-      "a charity run",
-      "a club meeting",
-      "a neighborhood cleanup",
-      "a cultural event",
-      "a photography club",
-      "a wine tasting event",
-      "a charity event",
-      "a volunteer opportunity",
-      "a support group",
-      "a meeting with the company",
-      "drinks with friends"
+      ["a birthday party", 3, 240],
+      ["a wedding", 3, 480],
+      ["a family reunion", 3, 360],
+      ["a baby shower", 2, 180],
+      ["a double date", 2, 180],
+      ["a dinner party", 2, 240],
+      ["a holiday gathering", 2, 360],
+      ["a themed costume party", 2, 240],
+      ["a karaoke night", 2, 180],
+      ["a local fair or carnival", 2, 240],
+      ["a charity run", 2, 120],
+      ["a club meeting", 2, 120],
+      ["a neighborhood cleanup", 2, 240],
+      ["a cultural event", 2, 240],
+      ["a photography club", 2, 120],
+      ["a wine tasting event", 2, 180],
+      ["a charity event", 2, 240],
+      ["a volunteer opportunity", 2, 240],
+      ["a support group", 2, 120],
+      ["a meeting with the company", 2, 120],
+      ["drinks with friends", 3, 120]
   ]
   
       
