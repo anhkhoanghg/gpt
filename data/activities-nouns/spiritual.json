@@ -1,19 +1,19 @@
 {
     "spiritual":
     [
-        "religious services",
-        "church",
-        "temple",
-        "mosque",
-        "synagogue",
-        "Hindu rituals",
-        "spiritual retreats",
-        "praying",
-        "reciting blessings",
-        "a prayer circle",
-        "a religious donation",
-        "Feeding the homeless",
-        "religious charities"
-      ]
+      ["religious services", 3, 120],
+      ["church", 3, 120],
+      ["temple", 3, 120],
+      ["mosque", 3, 120],
+      ["synagogue", 3, 120],
+      ["Hindu rituals", 3, 120],
+      ["spiritual retreats", 3, 240],
+      ["praying", 3, 30],
+      ["reciting blessings", 2, 15],
+      ["a prayer circle", 2, 60],
+      ["a religious donation", 2, 30],
+      ["Feeding the homeless", 3, 120],
+      ["religious charities", 2, 120]
+    ]
       
 }

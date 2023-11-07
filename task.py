@@ -22,10 +22,10 @@ class Task:
 
             time_ranges = {
                 "midnight": range(0, 5),
-                "morning": range(5, 10),
-                "noon": range(10, 15),
-                "evening": range(15, 19),
-                "night": range(19, 24)
+                "morning": range(5, 12),
+                "noon": range(12, 16),
+                "evening": range(16, 20),
+                "night": range(20, 24)
             }
 
             for time_of_day, time_range in time_ranges.items():
@@ -95,11 +95,11 @@ class Task:
             elif self.time_of_the_day == 'morning':
                 t = "5:00:00"
             elif self.time_of_the_day == 'noon':
-                t = "10:00:00"
+                t = "12:00:00"
             elif self.time_of_the_day == 'evening':
-                t = "15:00:00"
+                t = "16:00:00"
             elif self.time_of_the_day == 'night':
-                t = "19:00:00"
+                t = "20:00:00"
             
             time_obj = datetime.datetime.strptime(t, "%H:%M:%S").time()
             # Combine the current date with the parsed time to create a datetime object

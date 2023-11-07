@@ -1,12 +1,12 @@
 {
     "volenteering":
     [
-        "Help homeless people",
-        "Supporting children's hospital",
-        "Blood donation",
-        "Support elder care center",
-        "Organizing community clean-up events",
-        "Volunteering for disaster relief efforts",
-        "Joining healthcare missions"
+        ["Help homeless people", 4, 120],
+        ["Supporting children's hospital", 4, 120],
+        ["Blood donation", 3, 60],
+        ["Support elder care center", 4, 120],
+        ["Organizing community clean-up events", 3, 120],
+        ["Volunteering for disaster relief efforts", 4, 240],
+        ["Joining healthcare missions", 4, 240]
     ]
 }
