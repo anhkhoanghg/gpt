@@ -3,13 +3,13 @@
     [
         ["Booking flights and accommodations", 4, 60],
         ["Researching destinations", 3, 120],
-        ["Planning itineraries", 4, 90],
-        ["Packing suitcases", 3, 60],
+        ["Planning itineraries", 3, 90],
+        ["Packing suitcases", 2, 60],
         ["Getting travel insurance", 3, 30],
         ["Obtaining travel visas and documents", 4, 60],
         ["Exchanging currency", 3, 30],
         ["Downloading maps, translators, and apps", 3, 30],
-        ["Touring landmarks and attractions", 4, 240],
+        ["Touring landmarks and attractions", 3, 240],
         ["Taking tours", 3, 120],
         ["Exploring museums and galleries", 3, 120],
         ["Trying local cuisine", 4, 90],
@@ -18,10 +18,10 @@
         ["Relaxing on the beach", 3, 120],
         ["Participating in water sports", 3, 120],
         ["Trying adventure activities", 3, 120],
-        ["Experiencing cultural events", 4, 120],
-        ["Meeting locals", 4, 90],
+        ["Experiencing cultural events", 3, 120],
+        ["Meeting locals", 3, 90],
         ["Learning about history and traditions", 3, 120],
         ["Planning for travel", 3, 60],
-        ["Listing needed supplies", 2, 30]
+        ["Listing needed supplies", 4, 30]
     ]
 }
