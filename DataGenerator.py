@@ -13,7 +13,9 @@ class TaskGenerator():
         self.reminder_prefix, self.description_prefix = self.loadPrefix()
         self.conjunction = self.loadConjunction()
         self.preposition = self.loadPreposition()
-        self.priority_values, self.difficulty, self.important, self.status_values, self.tod_values, self.dow_values, self.month_values = self.loadTokenAnnotation()
+        # self.priority_values, self.difficulty, self.important, self.status_values, self.tod_values, self.dow_values, self.month_values = self.loadTokenAnnotation()
+        
+        self.category_values, self.priority_values, _, self.important, self.status_values, self.tod_values, self.dow_values, self.month_values = self.loadTokenAnnotation()
         self.elementMapping = {
             "subject": "s",
             "verb": "v",
@@ -43,6 +45,7 @@ class TaskGenerator():
 
     def loadCoreData(self):
         json_data = {}
+        
         for filename in os.listdir(self.pathToCoreDataDir):
             if filename.endswith(".json"):
                 with open(os.path.join(self.pathToCoreDataDir, filename), "r") as file:
@@ -50,7 +53,7 @@ class TaskGenerator():
                     if isinstance(data, dict):
                         json_data.update(data)
         return json_data
-
+    
     def loadPrefix(self):
 
         with open(f"{self.pathToStructureDir}/pre-fix.json", "r") as json_file:
@@ -103,10 +106,12 @@ class TaskGenerator():
 
         for activityCategory in self.coreData:
             for activity in self.coreData[activityCategory]:
+                
                 for comb in self.combination:
                     data_dict = {}
                     task = Task()
                     sentence = ""
+                    task.category = activityCategory
                     for index, category in enumerate(comb):
                         if category == "r-pre":
                             prefix = self.get_random_prefix("reminder-prefix")
@@ -118,11 +123,13 @@ class TaskGenerator():
                             if prefix:
                                 sentence += prefix + " "
                         elif category == "act":  # For "activities"
-                            sentence += f"{activity} "
-                            task.summarize += f"{activity} "
+                            sentence += f"{activity[0]} "
+                            task.summarize += f"{activity[0]} "
+                            task.expected_minute += f"{activity[2]}"
+                            task.important += f"{activity[1]}"
                         elif category == "n":  # For "activities"
-                            sentence += f"{activity} "
-                            task.summarize += f"{activity} "
+                            sentence += f"{activity[0]} "
+                            task.summarize += f"{activity[0]} "
                         elif category == "h":
                             label, time = self.generate_random_time()
                             sentence += time + " "
@@ -161,10 +168,32 @@ class TaskGenerator():
 
                             task.day += f"{day}"
                         elif category == "month":
-                            month = self.get_random_month()
+                            month, value = self.get_random_month()
                             sentence += str(month) + " "
-
-                            task.month += f"{month}"
+                            task.month += f"{value}"
+                        elif category == "no_date":
+                            value, string = self.get_random_num_of_date()
+                            sentence += string + " "
+                            task.number_of_date = value
+                        elif category == "no_week":
+                            value, string = self.get_random_num_of_week()
+                            sentence += string + " "
+                            task.number_of_week = value   
+                        elif category == "no_month":
+                            value, string = self.get_random_num_of_month()
+                            sentence += string + " "
+                            task.number_of_month = value  
+                        elif category == "daily":
+                            string, timer = self.get_random_daily()
+                            sentence += string
+                            task.daily = timer
+                            task.frequency = 'daily'
+                        elif category == "weekly":
+                            string, n_dow = self.get_random_weekly()
+                            sentence += string
+                            task.weekly = n_dow
+                            task.frequency = 'weekly'
+                            
                     data_dict["input"] = sentence
                     data_dict["target"] = task.getTaskString()
                     data.append(data_dict)
@@ -196,15 +225,81 @@ class TaskGenerator():
 
         return random_number, ordinal_word
 
+    def get_category_value(self, cate_key):
+        for key, value in self.category_values.items():
+            if key==cate_key:
+                return value
+            else:
+                return "Others"
+    
     def get_random_month(self):
-        return random.choice(list(self.month_values.values()))
+        diction = random.choice(list(self.month_values))
+        value = self.month_values[diction]
+        
+        return diction, value
 
     def get_random_dow(self):
         return random.choice(list(self.dow_values.values()))
 
     def get_random_tod(self):
         return random.choice(list(self.tod_values.keys()))
-
+    
+    def get_random_num_of_date(self):
+        nod = random.randint(1, 30)
+        if nod == 1:
+            string = "tomorrow"
+        else:
+            string = "next " + str(nod) + " days"
+        return nod, string
+    
+    def get_random_num_of_week(self):
+        now = random.randint(1, 3)   
+        if now == 1:
+            string = "next " + str(now) + " week" 
+        else:
+            string = "next " + str(now) + " weeks" 
+        return now, string
+    
+    def get_random_num_of_month(self):
+        nom = random.randint(1, 3)   
+        if nom == 1:
+            string = "next " + str(nom) + " month" 
+        else:
+            string = "next " + str(nom) + " months" 
+        return nom, string
+    
+    def get_random_daily(self):
+        num_tod = random.randint(1, 2)
+        daily = []
+        string = "at "
+        while num_tod>0:
+            time_24_hour, speechTime = self.generate_random_time()
+            daily.append(time_24_hour)
+            if num_tod>1:
+                string += speechTime + " and "
+            else:
+                string += speechTime
+                
+            num_tod -= 1
+        timer = '&'.join(daily)
+        string += " for everyday" 
+        return string, timer
+        
+    def get_random_weekly(self):
+        num_dow = random.randint(1, 3)
+        weekly = []
+        string = "for every "
+        while num_dow>0:
+            dow = self.get_random_dow()
+            weekly.append(dow)
+            if num_dow>1:
+                string += dow + " and "
+            else:
+                string += dow
+            num_dow -=1
+        dow = '&'.join(weekly)
+        return string, dow
+    
     def get_random_preposition(self):
         return random.choice(self.preposition)
 
@@ -221,6 +316,8 @@ class TaskGenerator():
         dow_index = comb.index("dow") if "dow" in comb else -1
         day_index = comb.index("day") if "day" in comb else -1
         month_index = comb.index("month") if "month" in comb else -1
+        
+                
         if len(prep_indices) >= 1:
             if h_index == -1 or any((h_index-1) == index for index in prep_indices):
                 prep_h = random.choice(preposition)
@@ -232,6 +329,8 @@ class TaskGenerator():
                 prep_day = "on"
             if month_index == -1 or any((month_index-1) == index for index in prep_indices):
                 prep_month = "in"
+            if month_index != -1 and day_index != -1 and (day_index - month_index == 1) and any((month_index-1) == index for index in prep_indices):
+                prep_month = "on"
         prep = [prep_h, prep_dow, prep_tod, prep_day, prep_month]
         for var in prep:
             result.append(var if var is not None else "")
@@ -281,6 +380,7 @@ class TaskGenerator():
             data = json.load(file)
 
         level_3_data = data["level_3"]
+        category_values = level_3_data["3.1"]["token"][1]["value-range"]
         priority_values = level_3_data["3.1"]["token"][2]["value-range"]
         difficulty_values = level_3_data["3.1"]["token"][3]["value-range"]
         important_values = level_3_data["3.1"]["token"][4]["value-range"]
@@ -289,7 +389,8 @@ class TaskGenerator():
         totd_values = level_3_data["3.1"]["token"][7]["value-range"]
         dow_values = level_3_data["3.1"]["token"][9]["value-range"]
         month_values = level_3_data["3.1"]["token"][11]["value-range"]
-        return priority_values, difficulty_values, important_values, status_values, totd_values, dow_values, month_values
+        return category_values, priority_values, difficulty_values, important_values, status_values, totd_values, dow_values, month_values
+        
 
 
 gen = TaskGenerator()

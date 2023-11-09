@@ -109,8 +109,8 @@ class Task:
     def getTaskString(self):
         self.redetermine()
         # Generate a task string with placeholders for attributes
-        task_string = f"<task><sum>{self.summarize}<cate>{self.category}<prio>{self.priority}<diff>{self.difficulty}<imp>{self.important}<freq>{self.frequency}<exp_min>{self.expected_minute}<totd>{self.time_of_the_day}<spec_time>{self.specific_time}<dow>{self.day_of_week}<day>{self.day}<month>{self.month}<no_date>{self.number_of_date}<no_week>{self.number_of_week}<no_month>{self.number_of_month}</task>"
-
+        #task_string = f"<task><sum>{self.summarize}<cate>{self.category}<prio>{self.priority}<diff>{self.difficulty}<imp>{self.important}<freq>{self.frequency}<exp_min>{self.expected_minute}<totd>{self.time_of_the_day}<spec_time>{self.specific_time}<dow>{self.day_of_week}<day>{self.day}<month>{self.month}<no_date>{self.number_of_date}<no_week>{self.number_of_week}<no_month>{self.number_of_month}</task>"
+        task_string = f"<task><sum>{self.summarize}<cate>{self.category}<imp>{self.important}<freq>{self.frequency}<exp_min>{self.expected_minute}<totd>{self.time_of_the_day}<spec_time>{self.specific_time}<dow>{self.day_of_week}<day>{self.day}<month>{self.month}<no_date>{self.number_of_date}<no_week>{self.number_of_week}<no_month>{self.number_of_month}</task>"
         return task_string
 
     def __str__(self):
@@ -146,7 +146,7 @@ class TasksManager:
             "priority": r"<prio>(.*?)<|<prio>(.*?)$",
             "frequency": r"<freq>(.*?)<|<freq>(.*?)$",
             "category": r"<cate>(.*?)<|<cate>(.*?)$",
-            "difficulty": r"<diff>(.*?)<|<diff>(.*?)$",
+            # "difficulty": r"<diff>(.*?)<|<diff>(.*?)$",
             "important": r"<imp>(.*?)<|<imp>(.*?)$",
             "expected_minute": r"<exp_min>(.*?)<|<exp_min>(.*?)$",
             "day_of_week": r"<dow>(.*?)<|<dow>(.*?)$",
@@ -154,7 +154,9 @@ class TasksManager:
             "month": r"<month>(.*?)<|<month>(.*?)$",
             "number_of_date": r"<no_date>(.*?)<|<no_date>(.*?)$",
             "number_of_week": r"<no_week>(.*?)<|<no_week>(.*?)$",
-            "number_of_month": r"<no_month>(.*?)<|<no_month>(.*?)$"
+            "number_of_month": r"<no_month>(.*?)<|<no_month>(.*?)$",
+            "daily": r"<daily>(.*?)<|<daily>(.*?)$",
+            "weekly": r"<weekly>(.*?)<|<weekly>(.*?)$"
         }
 
         # Iterate through each tag and extract the corresponding value
@@ -166,8 +168,10 @@ class TasksManager:
                     maybe_null_value = value.strip().lower()
                     if maybe_null_value in ["null", "none", ""]:
                         attributes[tag] = ''
-                    elif tag in ["prio", "diff", "imp", "freq", "exp_min",
-                                "totd", "dow", "day", "month", "no_date", "no_week", "no_month"]:
+                    elif tag in ["prio", "imp", "freq", "exp_min",
+                                "totd", "dow", "day", "month", "no_date", "no_week", "no_month",
+                                # "diff"
+                                ]:
                         try:
                             attributes[tag] = int(value)
                         except ValueError:
