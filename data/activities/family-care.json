@@ -1,7 +1,7 @@
 {
-    "family":[
-        ["Making breakfast for the family", 2, 30],
-        ["Packing school lunches", 2, 20],
+    "family-care":[
+        ["Making breakfast for the family", 4, 30],
+        ["Packing school lunches", 3, 20],
         ["Driving kids to school", 3, 30],
         ["Attending kids' school events", 3, 120],
         ["Helping with homework", 3, 60],

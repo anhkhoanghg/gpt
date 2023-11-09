@@ -1,4 +1,4 @@
-from task import Task, TasksManager
+from task import TasksManager
 import datetime
 from datetime import datetime, timedelta, time
 
@@ -8,6 +8,10 @@ target_text = [
     "<sum>Buy groceries in Thursday<cate>Errands<prio>5<diff>5<imp>3<freq>0<exp_min>60<totd>morning<spec_time>null<dow>5<day>null<month>null<no_date>1<no_week>null<no_month>null",
     "<sum>Read a chapter from book 5 PM<cate><prio><diff><imp><freq>1<exp_min><totd><spec_time>17:30:00<dow>monday<day><month>5<no_date><no_week><no_month>"
 ]
+def add_prio_tag(s):
+    imp_idx = s.index("<imp>")
+    s = s[:imp_idx] + "<prio>" + s[imp_idx:]
+    return s
 
 # sắp xếp task theo priority
 def sort_task(task_list):

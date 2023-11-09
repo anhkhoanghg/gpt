@@ -41,8 +41,8 @@
       "combination": ["r-pre", "act", "prep", "day"]
     },
     {
-      "example": "Remind me to buy groceries on 19 October.",
-      "combination": ["r-pre", "act", "prep", "day", "month"]
+      "example": "Remind me to buy groceries on October 19.",
+      "combination": ["r-pre", "act", "prep", "month", "day"]
     },
     {
       "example": "Remind me to buy groceries on 19 in October.",
@@ -53,29 +53,32 @@
       "combination": ["r-pre", "act", "prep", "h", "dow"]
     },
     {
-      "example": "Remind me to buy groceries after 5pm tuesday.",
-      "combination": ["r-pre", "act", "prep", "h", "dow"]
-    },
-    {
       "example": "Remind me to buy groceries after 5pm on tuesday.",
       "combination": ["r-pre", "act", "prep", "h", "prep", "dow"]
     },
     {
-      "example": "Remind me to buy groceries after 5pm on tuesday october.",
-      "combination": ["r-pre", "act", "prep", "h", "prep", "dow", "month"]
+      "example": "Remind me to buy groceries after 5pm on tuesday next week.",
+      "combination": ["r-pre", "act", "prep", "h", "prep", "dow", "no_week"]
     },
     {
-      "example": "Remind me to buy groceries after 5pm on tuesday of october.",
+      "example": "Remind me to buy groceries after 5pm on 19 next month",
       "combination": [
         "r-pre",
         "act",
         "prep",
         "h",
         "prep",
-        "dow",
-        "prep",
-        "month"
+        "day",
+        "no_month"
       ]
+    },
+    {
+      "example" : "Remind me to wake up at 5am for every day",
+      "combination": ["r-pre", "act", "daily"]
+    },
+    {
+      "example" : "Remind me to buy groceries at 5pm for every Monday.",
+      "combination": ["r-pre", "act", "prep", "h", "weekly"]
     }
   ]
 }
