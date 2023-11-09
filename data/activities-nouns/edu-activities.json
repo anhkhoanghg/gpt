@@ -2,7 +2,7 @@
   "edu-activities": 
   [
     ["a school", 3, 160],
-    ["a university", 3, 240],
+    ["a university", 3, 80],
     ["an essay", 4, 120],
     ["a final examination", 4, 90],
     ["the next examinations", 4, 180],
@@ -51,5 +51,4 @@
     ["a natural disaster or phenomenon", 2, 60],
     ["a topic in performing arts", 2, 60]
   ]
-  
 }

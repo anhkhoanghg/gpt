@@ -52,9 +52,9 @@ class PromptResultMergedDataset(Dataset):
 
     def __getitem__(self, idx):
         entry = self.data[idx]
-        prompt = entry['input_text']
-        target = entry['target_text']
-        merge = "<sot>"+ "<startofprompt>" + prompt + "<endofpromt>" + "<startoftask>" + target + "<endoftask>" + "<eot>"
+        prompt = entry['input']
+        target = entry['target']
+        merge = "<s>"+ "<prompt>" + prompt + "</prompt>" + "<task>" + target + "</task>" + "</s>"
         # Encode the prompt
         input_encoding = self.tokenizer(
             prompt,
@@ -99,7 +99,7 @@ class DailyTaskDataset(Dataset):
 
     def __getitem__(self, idx):
         entry = self.data[idx]
-        entry = "<startofstring>" + entry + "<endofstring>"
+        entry = "<s>" + entry + "</s>"
         # Encode the target
         encoding = self.tokenizer(
             entry,

@@ -52,7 +52,25 @@
         {
           "value": "<cate>",
           "attribute": "category",
-          "description": "Loại công việc"
+          "description": "Loại công việc",
+          "value-range": {
+            "edu-activities" : "education",
+            "entertainment" : "entertainment",
+            "family-care" : "family",
+            "finance" : "finance",
+            "health-care" : "health care",
+            "home-maintainance" : "home maintainance",
+            "paperwork" : "paperwork",
+            "personal-care" : "personal care",
+            "relaxation" : "relaxation",
+            "shopping": "shopping",
+            "socials": "social",
+            "spiritual": "spiritual",
+            "travelling": "travelling",
+            "volenteering": "volenteering",
+            "works": "working"
+          }
+
         },
         {
           "value": "<prio>",
@@ -91,11 +109,11 @@
         {
           "value": "<freq>",
           "attribute": "frequency",
-          "description": "Single hoặc Daily ...",
+          "description": "Single hoặc Daily hoac Weekly",
           "value-range": {
             "single": 1,
             "daily": 2,
-            "monthly": 3
+            "weekly": 3
           }
         },
         {
@@ -125,12 +143,12 @@
           "attribute": "day_of_week",
           "description": "Ngày trong tuần",
           "value-range": {
-            "sunday": "sun",
-            "monday": "mon",
-            "tuesday": "tue",
-            "wednesday": "wed",
-            "friday": "fri",
-            "saturday": "sat"
+            "sunday": "sunday",
+            "monday": "monday",
+            "tuesday": "tuesday",
+            "wednesday": "wednesday",
+            "friday": "friday",
+            "saturday": "saturday"
           }
         },
         {
@@ -171,6 +189,16 @@
           "value": "<no_month>",
           "attribute": "number_of_month",
           "description": "Số tháng n+1 lặp lại của công việc, nếu bằng 0 thì lặp lại trong vòng 1 tháng nhưng dựa theo độ khó của công việc"
+        },
+        {
+          "value": "<daily>",
+          "attribute": "daily",
+          "description": "Công việc hằng ngày theo khung thời gian của ngày"
+        },
+        {
+          "value": "<weekly>",
+          "attribute": "weekly",
+          "description": "Công việc hàng tuần vào các ngày trong tuần"
         }
       ]
     }
