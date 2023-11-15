@@ -54,7 +54,7 @@ class PromptResultMergedDataset(Dataset):
         entry = self.data[idx]
         prompt = entry['input']
         target = entry['target']
-        merge = "<s>"+ "<prompt>" + prompt + "</prompt>" + "<task>" + target + "</task>" + "</s>"
+        merge = "<s>"+ "<prompt>" + prompt + "</prompt>" +  target +  "</s>"
         # Encode the prompt
         input_encoding = self.tokenizer(
             prompt,
