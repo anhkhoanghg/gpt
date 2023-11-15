@@ -5,5 +5,4 @@
 .idea/inspectionProfiles/profiles_settings.xml
 __pycache__/task.cpython-39.pyc
 .idea/misc.xml
-.data/prompt-target/full_data.json
-./model/output
+./model/output/*
