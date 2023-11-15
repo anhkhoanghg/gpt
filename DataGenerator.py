@@ -6,16 +6,20 @@ from task import Task
 
 class TaskGenerator():
     def __init__(self):
-        self.pathToCoreDataDir = "./data/activities-verbs"
+        self.pathToCoreDataDir_v = "./data/activities-verbs"
+        self.pathToCoreDataDir_n = "./data/activities-nouns"
+
         self.pathToStructureDir = "./data/structure"
         self.token_annotation_path = "./token_annotation.json"
-        self.coreData = self.loadCoreData()
+        self.coreData_v = self.loadCoreData(self.pathToCoreDataDir_v)
+        self.coreData_n = self.loadCoreData(self.pathToCoreDataDir_n)
         self.reminder_prefix, self.description_prefix = self.loadPrefix()
         self.conjunction = self.loadConjunction()
         self.preposition = self.loadPreposition()
         # self.priority_values, self.difficulty, self.important, self.status_values, self.tod_values, self.dow_values, self.month_values = self.loadTokenAnnotation()
         
         self.category_values, self.priority_values, _, self.important, self.status_values, self.tod_values, self.dow_values, self.month_values = self.loadTokenAnnotation()
+
         self.elementMapping = {
             "subject": "s",
             "verb": "v",
@@ -43,12 +47,12 @@ class TaskGenerator():
 
         self.combination = self.loadCombination()
 
-    def loadCoreData(self):
+    def loadCoreData(self, path):
         json_data = {}
-        
-        for filename in os.listdir(self.pathToCoreDataDir):
+
+        for filename in os.listdir(path):
             if filename.endswith(".json"):
-                with open(os.path.join(self.pathToCoreDataDir, filename), "r") as file:
+                with open(os.path.join(path, filename), "r") as file:
                     data = json.load(file)
                     if isinstance(data, dict):
                         json_data.update(data)
@@ -93,35 +97,35 @@ class TaskGenerator():
 
         return combinations_list
 
-    def countQuantityOfEachKeys(self):
-        for key, sub_array in self.coreData.items():
+    def countQuantityOfEachKeys(self, dict):
+        for key, sub_array in dict.items():
             count = len(sub_array)
             print(f"Key: {key}, Number of elements: {count}")
 
-    def generateTask(self):
+    def generateTask_v(self):
         data = []
-        total_iterations = len(self.coreData) * \
-            len(self.combination) * len(self.coreData)
+        total_iterations = len(self.coreData_v) * len(self.combination) * len(self.coreData_v)
         current_iteration = 0
 
-        for activityCategory in self.coreData:
-            for activity in self.coreData[activityCategory]:
+        for activityCategory in self.coreData_v:
+            for activity in self.coreData_v[activityCategory]:
                 
                 for comb in self.combination:
                     data_dict = {}
                     task = Task()
                     sentence = ""
                     task.category = activityCategory
+                    task.frequency = "single"
                     for index, category in enumerate(comb):
                         if category == "r-pre":
                             prefix = self.get_random_prefix("reminder-prefix")
                             if prefix:
                                 sentence += prefix + " "
-                        elif category == "d-pre":
-                            prefix = self.get_random_prefix(
-                                "description-prefix")
-                            if prefix:
-                                sentence += prefix + " "
+                        # elif category == "d-pre":
+                        #     prefix = self.get_random_prefix(
+                        #         "description-prefix")
+                        #     if prefix:
+                        #         sentence += prefix + " "
                         elif category == "act":  # For "activities"
                             sentence += f"{activity[0]} "
                             task.summarize += f"{activity[0]} "
@@ -170,7 +174,7 @@ class TaskGenerator():
                         elif category == "month":
                             month, value = self.get_random_month()
                             sentence += str(month) + " "
-                            task.month += f"{value}"
+                            task.month += f"{month}"
                         elif category == "no_date":
                             value, string = self.get_random_num_of_date()
                             sentence += string + " "
@@ -206,7 +210,124 @@ class TaskGenerator():
         with open(outputDir, 'w') as json_file:
             json.dump(data, json_file, indent=4)
 
-        print(f'Data has been written to {outputDir}')
+        print(f'Data verbs has been written to {outputDir}')
+
+    def generateTask_n(self):
+        data = []
+        total_iterations = len(self.coreData_n) * len(self.combination) * len(self.coreData_n)
+        current_iteration = 0
+
+        for activityCategory in self.coreData_n:
+            for activity in self.coreData_n[activityCategory]:
+
+                for comb in self.combination:
+                    data_dict = {}
+                    task = Task()
+                    sentence = ""
+                    task.category = activityCategory
+                    task.frequency = "single"
+                    for index, category in enumerate(comb):
+                        # if category == "r-pre":
+                        #     prefix = self.get_random_prefix("reminder-prefix")
+                        #     if prefix:
+                        #         sentence += prefix + " "
+                        if category == "r-pre":
+                            prefix = self.get_random_prefix(
+                                "description-prefix")
+                            if prefix:
+                                sentence += prefix + " "
+                        elif category == "act":  # For "activities"
+                            sentence += f"{activity[0]} "
+                            task.summarize += f"{activity[0]} "
+                            task.expected_minute += f"{activity[2]}"
+                            task.important += f"{activity[1]}"
+                        elif category == "n":  # For "activities"
+                            sentence += f"{activity[0]} "
+                            task.summarize += f"{activity[0]} "
+                        elif category == "h":
+                            label, time = self.generate_random_time()
+                            sentence += time + " "
+                            task.summarize += f"{time}"
+                            task.specific_time += f"{label}"
+
+                        elif category == "prep":
+                            prep = self.randomPreposition(comb)
+                            preposition = None
+                            if index < (len(comb) - 1):
+                                next_cate = comb[index + 1]
+                                if next_cate == "h":
+                                    preposition = prep[0]
+                                if next_cate == "dow":
+                                    preposition = prep[1]
+                                if next_cate == "tod":
+                                    preposition = prep[2]
+                                if next_cate == "day":
+                                    preposition = prep[3]
+                                if next_cate == "month":
+                                    preposition = prep[4]
+                            if preposition is not None:
+                                sentence += preposition + " "
+                        elif category == "tod":
+                            tod = self.get_random_tod()
+                            sentence += tod + " "
+
+                            task.time_of_the_day += f"{tod}"
+                        elif category == "dow":
+                            dow = self.get_random_dow()
+                            sentence += dow + " "
+                            task.day_of_week += f"{dow}"
+                        elif category == "day":
+                            day, ordinal_day = self.get_random_day_with_word()
+                            sentence += str(day) + " "
+
+                            task.day += f"{day}"
+                        elif category == "month":
+                            month, value = self.get_random_month()
+                            sentence += str(month) + " "
+                            task.month += f"{month}"
+                        elif category == "no_date":
+                            value, string = self.get_random_num_of_date()
+                            sentence += string + " "
+                            task.number_of_date = value
+                        elif category == "no_week":
+                            value, string = self.get_random_num_of_week()
+                            sentence += string + " "
+                            task.number_of_week = value
+                        elif category == "no_month":
+                            value, string = self.get_random_num_of_month()
+                            sentence += string + " "
+                            task.number_of_month = value
+                        elif category == "daily":
+                            string, timer = self.get_random_daily()
+                            sentence += string
+                            task.daily = timer
+                            task.frequency = 'daily'
+                        elif category == "weekly":
+                            string, n_dow = self.get_random_weekly()
+                            sentence += string
+                            task.weekly = n_dow
+                            task.frequency = 'weekly'
+
+                    data_dict["input"] = sentence
+                    data_dict["target"] = task.getTaskString()
+                    data.append(data_dict)
+
+                    current_iteration += 1
+                    progress = (current_iteration / total_iterations) * 100
+                    print(f"Progress: {progress:.2f}%")
+
+        outputDir = "./data/prompt-target/full_data.json"
+
+        try:
+            with open(outputDir, 'r') as file:
+                existing_data = json.load(file)
+        except FileNotFoundError:
+            existing_data = []
+        existing_data.extend(data)
+        with open(outputDir, 'w') as json_file:
+            json.dump(existing_data, json_file, indent=2)
+
+        print(f'Data nouns has been written to {outputDir}')
 
     def get_random_day_with_word(self):
         # Generate a random number between 1 and 31
@@ -359,7 +480,7 @@ class TaskGenerator():
 
             # Format the time as 'h AM' or 'h PM'
             time_24_hour = f"{hour + 12 if am_pm == 'PM' else hour:02d}:{minute:02d}:00"
-            speechTime = f"{hour} {am_pm}"
+            speechTime = f"{hour} {minute:02d} {am_pm}"
         else:
             # Generate a random hour from 0 to 23 for 24-hour format
             hour = random.randint(0, 23)
@@ -369,7 +490,7 @@ class TaskGenerator():
                 [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55])
 
             # Format the time as 'hh:mm'
-            time_24_hour = f"{hour:02d}:{minute:02d}:00"
+            time_24_hour = f"{hour:02d}:00:00"
             speechTime = f"{hour} o'clock"
 
         return time_24_hour, speechTime
@@ -394,4 +515,5 @@ class TaskGenerator():
 
 
 gen = TaskGenerator()
-gen.generateTask()
+gen.generateTask_v()
+gen.generateTask_n()

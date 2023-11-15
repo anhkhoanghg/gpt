@@ -2,6 +2,7 @@ import json
 import re
 import datetime
 from dateutil.relativedelta import relativedelta
+import random
 
 
 
@@ -13,6 +14,16 @@ class Task:
         # self.deadline_indicator()
         # self.calc_remain_time()
         self.id = id
+        self.tod_values = {
+            "midnight": 1,
+            "morning": 2,
+            "noon": 3,
+            "evening": 4,
+            "night": 5
+        }
+
+    def get_random_tod(self):
+        return random.choice(list(self.tod_values.keys()))
 
     def redetermine(self):
 
@@ -21,23 +32,22 @@ class Task:
             hours, minutes, seconds = map(int, self.specific_time.split(":"))
 
             time_ranges = {
-                "midnight": range(0, 5),
-                "morning": range(5, 12),
-                "noon": range(12, 16),
-                "evening": range(16, 20),
-                "night": range(20, 24)
+                "midnight": range(0, 6),
+                "morning": range(5, 13),
+                "noon": range(12, 17),
+                "evening": range(16, 21),
+                "night": range(20, 25)
             }
 
             for time_of_day, time_range in time_ranges.items():
                 if hours in time_range:
                     self.time_of_the_day = time_of_day
                     break
-            else:
-                self.time_of_the_day = "night"
+
         else:
-            self.time_of_the_day = "morning"  # or set it to some default value
-        if self.time_of_the_day=='':
-            self.time_of_the_day = 'night'
+            self.time_of_the_day = self.get_random_tod()
+        if self.time_of_the_day == '':
+            self.time_of_the_day = self.get_random_tod()
     def calculate_deadline(self):
         pass
 
@@ -110,7 +120,7 @@ class Task:
         self.redetermine()
         # Generate a task string with placeholders for attributes
         #task_string = f"<task><sum>{self.summarize}<cate>{self.category}<prio>{self.priority}<diff>{self.difficulty}<imp>{self.important}<freq>{self.frequency}<exp_min>{self.expected_minute}<totd>{self.time_of_the_day}<spec_time>{self.specific_time}<dow>{self.day_of_week}<day>{self.day}<month>{self.month}<no_date>{self.number_of_date}<no_week>{self.number_of_week}<no_month>{self.number_of_month}</task>"
-        task_string = f"<task><sum>{self.summarize}<cate>{self.category}<imp>{self.important}<freq>{self.frequency}<exp_min>{self.expected_minute}<totd>{self.time_of_the_day}<spec_time>{self.specific_time}<dow>{self.day_of_week}<day>{self.day}<month>{self.month}<no_date>{self.number_of_date}<no_week>{self.number_of_week}<no_month>{self.number_of_month}</task>"
+        task_string = f"<task><sum>{self.summarize}<cate>{self.category}<imp>{self.important}<freq>{self.frequency}<exp_min>{self.expected_minute}<totd>{self.time_of_the_day}<spec_time>{self.specific_time}<dow>{self.day_of_week}<day>{self.day}<month>{self.month}<no_date>{self.number_of_date}<no_week>{self.number_of_week}<no_month>{self.number_of_month}<daily>{self.daily}<weekly>{self.weekly}</task>"
         return task_string
 
     def __str__(self):
