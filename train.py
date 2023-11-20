@@ -96,7 +96,7 @@ model.resize_token_embeddings(len(tokenizer))
 model = model.to(device)
 
 dailyTaskDataset = PromptResultMergedDataset(
-    "./data/prompt-target/full_data.json", tokenizer)
+    "./data/prompt-target/train_data.json", tokenizer)
 dailyTaskDataLoader = DataLoader(dailyTaskDataset, batch_size=64)
 
 model.train()
