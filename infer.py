@@ -21,7 +21,7 @@ custom_tokens = loadTagToken('./token_annotation.json')
 special_tokens = {
     "pad_token": "<pad>",
     "bos_token": "<s>",
-    "eos_token": "<\s>",
+    "eos_token": "</s>",
     "additional_special_tokens": custom_tokens
 }
 
@@ -34,7 +34,7 @@ model = GPT2LMHeadModel.from_pretrained("gpt2")
 model.resize_token_embeddings(len(tokenizer))
 
 # Load trained model state
-model.load_state_dict(torch.load("./model/output/checkpoint-1812600/pytorch_model.bin", map_location=torch.device('cuda')))
+model.load_state_dict(torch.load("./checkpoint-1812600/pytorch_model.bin", map_location=torch.device('cuda')))
 # model.load_state_dict(torch.load("./checkpoint-650/pytorch_model.bin", map_location=torch.device('cuda')))
 model.eval()
 
@@ -68,10 +68,10 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 model.to(device)
 
 input_entry = {
-    "prompt": "i have to Turning shopping trips into adventures on 13 in February",
+    "prompt": "I have to finish styling hair after 14 o'clock for every sunday and friday",
 }
 
-max_length = 50  # Adjust this value
+max_length = 80  # Adjust this value
 
 response = infer(input_entry, max_length)
 print(response)

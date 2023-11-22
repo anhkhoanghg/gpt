@@ -83,7 +83,7 @@ custom_tokens = loadTagToken('./token_annotation.json')
 special_tokens = {
     "pad_token": "<pad>",
     "bos_token": "<s>",
-    "eos_token": "<\s>",
+    "eos_token": "</s>",
     "additional_special_tokens": custom_tokens
 }
 
