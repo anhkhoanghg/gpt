@@ -34,13 +34,13 @@ model = GPT2LMHeadModel.from_pretrained("gpt2")
 model.resize_token_embeddings(len(tokenizer))
 
 # Load trained model state
-model.load_state_dict(torch.load("./model/output/checkpoint-771120/pytorch_model.bin", map_location=torch.device('cuda')))
+model.load_state_dict(torch.load("./model/output/checkpoint-1812600/pytorch_model.bin", map_location=torch.device('cuda')))
 # model.load_state_dict(torch.load("./checkpoint-650/pytorch_model.bin", map_location=torch.device('cuda')))
 model.eval()
 
 # Example usage
 input_entry = {
-    "prompt": "Remind me to call my mom tonight 10 pm",
+    "i have to Turning shopping trips into adventures on 13 in February",
 }
 
 def infer(entry, max_length):
@@ -68,10 +68,10 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 model.to(device)
 
 input_entry = {
-    "prompt": "i have to Packing suitcases at 8 PM for every Thursday and Friday",
+    "prompt": "i have to Turning shopping trips into adventures on 13 in February",
 }
 
-max_length = 100  # Adjust this value
+max_length = 50  # Adjust this value
 
 response = infer(input_entry, max_length)
 print(response)
