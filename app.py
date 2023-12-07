@@ -1,5 +1,5 @@
 from flask import Flask
-from main import GetPrediction, OrderingTask
+from modelPred.main import GetPrediction, OrderingTask
 import os
 from flask import Flask, jsonify, render_template, request, json
 
