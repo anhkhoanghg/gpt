@@ -6,7 +6,7 @@ from datetime import datetime as dt
 from datetime import time, timedelta
 import parsedatetime as pdt
 import re
-from task import TasksManager
+from modelPred.task import TasksManager
 #spacy.cli.download("en_core_web_sm")
 class GetDateTime():
     def __init__(self):
