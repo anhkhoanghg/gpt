@@ -15,7 +15,7 @@ input_entry = {
 def train(dataset, model, max_length, temperature):
     training_args = TrainingArguments(
         output_dir="./model/output",
-        num_train_epochs=50,
+        num_train_epochs=100,
         per_device_train_batch_size=1,
         save_steps=10,
         save_total_limit=2,
@@ -105,6 +105,6 @@ optim = Adam(model.parameters(), lr=1e-2)
 
 print("training .... ")
 temperature = 0.2
-max_length = 50
+max_length = 100
 train(dailyTaskDataset, model, max_length, temperature)
 

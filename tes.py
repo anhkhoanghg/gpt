@@ -18,6 +18,9 @@
 import spacy
 from datetime import datetime as dt
 import parsedatetime as pdt
+import spacy.cli
+
+
 class GetDateTime():
     def __init__(self):
         self.nlp = spacy.load("en_core_web_sm")
@@ -28,14 +31,18 @@ class GetDateTime():
     def getDateTimeinText(self, text):
         doc = self.nlp(text)
         result = ""
+        date = ""
+        time = ""
         for ent in doc.ents:
             if ent.label_ in ["DATE", "TIME"]:
                 print(f"Entity: {ent.text}, Label: {ent.label_}")
                 if ent.label_ == "DATE":
+                    date = self.getRemindTime(ent.text)
                     result = self.insert_str(result, " "+ent.text, len(result))
                 elif ent.label_ == "TIME":
+                    time = self.getRemindTime(ent.text)
                     result = self.insert_str(result, ent.text , 0)
-        return result
+        return result, date, time
 
     def instrucadeclare(self, text):
         doc = self.nlp(text)
@@ -63,17 +70,13 @@ class GetDateTime():
             print(declaration)
         return instructions, declarations
             
-    # text = "set a reminder for Meeting with study groups and tutors as 2 AM "
-    # instrucadeclare(text)
+
     def getRemindTime(self, time_string):
         cal = pdt.Calendar()
         now = dt.now()
-        print("now: %s" % now)
-        print("%s:\t%s" % (time_string, cal.parseDT(time_string, now)[0])) 
         return cal.parseDT(time_string, now)[0]
     
 getTime = GetDateTime()
-text = "set a reminder for Meeting with study groups and tutors at 2 PM next Friday "
-dateTime = getTime.getDateTimeinText(text)
-print(dateTime)
-remindTime = getTime.getRemindTime(dateTime)
+text = "set a reminder to have lunch at 11 AM for next 3 days"
+string, date, time = getTime.getDateTimeinText(text)
+print(date, time)
