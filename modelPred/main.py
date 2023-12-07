@@ -343,10 +343,10 @@ class OrderingTask():
         print(final_dict)
         return final_dict
             
-if __name__ == "__main__":
-    pred = GetPrediction()
-    text = "remind me to go to school at 10 am tomorrow"
-    att = pred.predict(text)
-    for i in att:
-        print(att[i])
+# if __name__ == "__main__":
+#     pred = GetPrediction()
+#     text = "remind me to go to school at 10 am tomorrow"
+#     att = pred.predict(text)
+#     for i in att:
+#         print(att[i])
 
