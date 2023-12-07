@@ -77,6 +77,6 @@ class GetDateTime():
         return cal.parseDT(time_string, now)[0]
     
 getTime = GetDateTime()
-text = "set a reminder to have lunch at 11 AM for next 3 days"
+text = "set a reminder to have lunch at 11 AM tomorrow"
 string, date, time = getTime.getDateTimeinText(text)
 print(date, time)

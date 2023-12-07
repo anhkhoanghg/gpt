@@ -1,7 +1,7 @@
 import os
 import json
 import random
-from task import Task
+from modelPred.task import Task
 
 
 class TaskGenerator():
