@@ -108,9 +108,3 @@ temperature = 0.2
 max_length = 100
 train(dailyTaskDataset, model, max_length, temperature)
 
-data = {
-    "input": "asdasdawdasdasda"
-}
-
-
-data["input"]
