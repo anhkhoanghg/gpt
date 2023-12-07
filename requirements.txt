@@ -7,3 +7,4 @@ spacy==3.5.3
 torch==2.0.0
 tqdm==4.65.0
 transformers==4.29.1
+gunicorn==19.7.1
