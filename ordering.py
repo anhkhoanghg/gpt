@@ -1,4 +1,4 @@
-from task import TasksManager
+from modelPred.task import TasksManager
 import datetime
 from datetime import datetime, timedelta, time
 
