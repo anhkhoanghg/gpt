@@ -25,12 +25,14 @@ def predict():
         return jsonify(result)
     except Exception as e:
         return jsonify({'error': str(e)})
+    
+
 
 @app.route('/order_tasks', methods=['GET'])
 def order_tasks():
     try:
         data = request.get_json()
-        task_list = data['tasks']
+        task_list = data['entry']
         result = ordering_task_instance.ordering(task_list)
         return jsonify(result)
     except Exception as e:
