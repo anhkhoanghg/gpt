@@ -156,7 +156,6 @@ class TasksManager:
             "priority": r"<prio>(.*?)<|<prio>(.*?)$",
             "frequency": r"<freq>(.*?)<|<freq>(.*?)$",
             "category": r"<cate>(.*?)<|<cate>(.*?)$",
-            # "difficulty": r"<diff>(.*?)<|<diff>(.*?)$",
             "important": r"<imp>(.*?)<|<imp>(.*?)$",
             "expected_minute": r"<exp_min>(.*?)<|<exp_min>(.*?)$",
             "day_of_week": r"<dow>(.*?)<|<dow>(.*?)$",
@@ -212,5 +211,4 @@ class TasksManager:
         task_strings = [f"Task {i+1}: {task}" for i, task in enumerate(self.tasks)]
         return '\n'.join(task_strings)
 
-task = Task()
-print(task)
+
