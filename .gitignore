@@ -3,5 +3,6 @@
 .idea/vcs.xml
 .idea/inspectionProfiles/Project_Default.xml
 .idea/inspectionProfiles/profiles_settings.xml
-__pycache__/task.cpython-39.pyc
+**/__pycache__
+__pycache__/
 .idea/misc.xml
