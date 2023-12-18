@@ -3,10 +3,10 @@ import datetime
 from datetime import datetime, timedelta, time
 
 target_text = [
-    "<sum>Prepare presentation for 18 this month<cate>Work<prio>3<diff>4<imp>4<freq>0<exp_min>120<totd>morning<spec_time>null<dow>null<day>18<month>null<no_date>3<no_week>null<no_month>0",
-    "<sum>Finish coding assignment before tommorow<cate>Study<prio>2<diff>1<imp>1<freq>0<exp_min>180<totd>morning<spec_time>null<dow>null<day>null<month>null<no_date>2<no_week>null<no_month>null",
-    "<sum>Buy groceries in Thursday<cate>Errands<prio>5<diff>5<imp>3<freq>0<exp_min>60<totd>morning<spec_time>null<dow>5<day>null<month>null<no_date>1<no_week>null<no_month>null",
-    "<sum>Read a chapter from book 5 PM<cate><prio><diff><imp><freq>1<exp_min><totd><spec_time>17:30:00<dow>monday<day><month>5<no_date><no_week><no_month>"
+    "<task><sum>Meet with a teacher for extra help <cate>edu-activities<imp>3<freq>single<exp_min>120<totd>night<spec_time><dow><day><month><no_date><no_week>1<no_month><daily><weekly></task>",
+    "<task><sum>Join a school club <cate>edu-activities<imp>2<freq>single<exp_min>120<totd>evening<spec_time><dow><day><month><no_date><no_week>1<no_month><daily><weekly></task>",
+    "<task><sum>Study for upcoming exams 10 00 AM<cate>edu-activities<imp>4<freq>single<exp_min>90<totd>morning<spec_time>10:00:00<dow><day><month><no_date><no_week><no_month><daily><weekly></task>",
+    "<task><sum>Use a computer for research 4 20 PM<cate>edu-activities<imp>3<freq>single<exp_min>120<totd>noon<spec_time>16:20:00<dow><day><month><no_date><no_week><no_month><daily><weekly></task>"
 ]
 def add_prio_tag(s):
     imp_idx = s.index("<imp>")
@@ -132,6 +132,9 @@ def process(tasks):
             st += exp_minute
 
     return ret_dict
+
+
+
 
 import sys
 if __name__ == "__main__":
