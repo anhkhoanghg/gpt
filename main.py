@@ -7,7 +7,7 @@ from datetime import time, timedelta
 import parsedatetime as pdt
 import re
 from modelPred.task import TasksManager
-spacy.cli.download("en_core_web_sm")
+#spacy.cli.download("en_core_web_sm")
 class GetDateTime():
     def __init__(self):
         self.nlp = spacy.load("en_core_web_sm")
@@ -41,7 +41,7 @@ class GetDateTime():
 class GetPrediction():
     def __init__(self):
         self.tokenAnnotationPath = './token_annotation.json'
-        self.pathtoModel = "./modelPred/model/checkpoint-1812600/pytorch_model.bin"
+        self.pathtoModel = "D:\KLTN\gpt\modelPred\model\checkpoint-1812600\pytorch_model.bin"
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.get_specify_datetime = GetDateTime()
         self.custom_tokens = self.loadTokens()
@@ -174,6 +174,9 @@ class GetPrediction():
         if text:
             attributes = self.extract_tag_value(text)
             string_dt, date, time = self.get_specify_datetime.getDateTimeinText(entry)     
+            print(time)
+            print("\n")
+            print(date)
             if time != '':      
                 attributes["specific_time"] = str(time.time())
             if date != '':
@@ -185,7 +188,10 @@ class GetPrediction():
         else:
             attributes = []
             attributes["sum"] = entry
-            string_dt, date, time = self.get_specify_datetime.getDateTimeinText(entry)           
+            string_dt, date, time = self.get_specify_datetime.getDateTimeinText(entry)        
+            print(time)
+            print("\n")
+            print(date)   
             if time != '':      
                 attributes["specific_time"] = str(time.time())
             if date != '':
@@ -345,7 +351,7 @@ class OrderingTask():
             
 # if __name__ == "__main__":
 #     pred = GetPrediction()
-#     text = "remind me to go to school at 10 am tomorrow"
+#     text = "remind me to go to school at 5 am tomorrow"
 #     att = pred.predict(text)
 #     for i in att:
 #         print(att[i])

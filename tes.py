@@ -76,7 +76,4 @@ class GetDateTime():
         now = dt.now()
         return cal.parseDT(time_string, now)[0]
     
-getTime = GetDateTime()
-text = "remind me to go to school at 5:30 am"
-string, date, time = getTime.getDateTimeinText(text)
-print(date, time)
+

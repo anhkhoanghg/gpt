@@ -1,5 +1,5 @@
 from flask import Flask
-from modelPred.main import GetPrediction, OrderingTask
+from main import GetPrediction, OrderingTask
 import os
 from flask import Flask, jsonify, render_template, request, json
 
@@ -22,6 +22,7 @@ def predict():
 
         entry = data['entry']
         result = get_prediction_instance.predict(entry)
+        print(entry)
         return jsonify(result)
     except Exception as e:
         return jsonify({'error': str(e)})
