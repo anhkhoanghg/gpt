@@ -2,15 +2,16 @@ from flask import Flask
 from main import GetPrediction, OrderingTask
 import os
 from flask import Flask, jsonify, render_template, request, json
+from flask_cors import CORS
 
 import pandas as pd
 app = Flask(__name__)
-
+CORS(app)
 
 get_prediction_instance = GetPrediction()
 ordering_task_instance = OrderingTask()
 
-@app.route('/predict', methods=['GET'])
+@app.route('/predict', methods=['POST'])
 def predict():
     try:
         # data = request.json
@@ -29,7 +30,7 @@ def predict():
     
 
 
-@app.route('/order_tasks', methods=['GET'])
+@app.route('/order_tasks', methods=['POST'])
 def order_tasks():
     try:
         data = request.get_json()
