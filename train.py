@@ -6,36 +6,46 @@ import tqdm
 import torch
 from transformers import Trainer, TrainingArguments, DataCollatorForLanguageModeling
 import json
-# Example usage
-input_entry = {
-    "prompt": "Prepare presentation for tomorrow's conference",
-}
+from torch.nn import CrossEntropyLoss
 
+
+loss_fn = CrossEntropyLoss()
+
+class CustomTrainer(Trainer):
+    def compute_loss(self, model, dataset, return_outputs=False):
+        labels = dataset["target"]
+        # forward pass
+        outputs = model(**dataset)
+        logits = outputs.get("logits")
+        loss_fct = CrossEntropyLoss(weight=torch.tensor([10.0], device=model.device))
+        loss = loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
+        return (loss, outputs) if return_outputs else loss
+    
 
 def train(dataset, model, max_length, temperature):
     training_args = TrainingArguments(
-        output_dir="./model/output",
-        num_train_epochs=100,
+        output_dir="./modelPred/model",
+        num_train_epochs=10,
         per_device_train_batch_size=1,
         save_steps=10,
         save_total_limit=2,
         overwrite_output_dir=True,
     )
-
+    
     data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
-
+    
     trainer = Trainer(
         model=model,
         args=training_args,
         data_collator=data_collator,
-        train_dataset=dataset
+        train_dataset=dataset,
+        
     )
-
+    
     # Start training
     trainer.train()
-
+    print("Final training loss:", trainer.callback_metrics["loss"])
     torch.save(model.state_dict(), "model_state.pt")
-    print(infer(input_entry, max_length))
 
 
 def infer(entry, max_length):
@@ -60,10 +70,7 @@ def infer(entry, max_length):
     return generated_text
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-# custom_tokens = [
-#     "<prompt>", "</prompt>", "<task>", "</task>", "<sum>", "<cate>", "<prio>", "<diff>",  "<imp>",
-#     "<freq>", "<exp_min>", "<totd>", "<spec_time>", "<dow>", "<day>", "<month>", "<no_date>", "<no_week>", "<no_month>"
-# ]
+
 
 def loadTagToken(token_annotation_path):
     listToken = []
@@ -98,13 +105,14 @@ model = model.to(device)
 dailyTaskDataset = PromptResultMergedDataset(
     "./data/prompt-target/train_data.json", tokenizer)
 dailyTaskDataLoader = DataLoader(dailyTaskDataset, batch_size=64)
-
+temperature = 0.2
+max_length = 100
 model.train()
 
 optim = Adam(model.parameters(), lr=1e-2)
 
+
 print("training .... ")
-temperature = 0.2
-max_length = 100
+
 train(dailyTaskDataset, model, max_length, temperature)
 
