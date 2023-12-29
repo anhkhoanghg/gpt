@@ -41,7 +41,7 @@ class GetDateTime():
 class GetPrediction():
     def __init__(self):
         self.tokenAnnotationPath = './token_annotation.json'
-        self.pathtoModel = "D:\KLTN\gpt\modelPred\model\checkpoint-1812600\pytorch_model.bin"
+        self.pathtoModel = "./modelPred/model/checkpoint-1812600/pytorch_model.bin"
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.get_specify_datetime = GetDateTime()
         self.custom_tokens = self.loadTokens()
@@ -177,14 +177,15 @@ class GetPrediction():
             print(time)
             print("\n")
             print(date)
-            if time != '':      
-                attributes["specific_time"] = str(time.time())
-            if date != '':
-                attributes["day"] =str(date.day)
-                attributes["month"] = str(date.month)
-            else:
-                attributes["day"] =str(time.day)
-                attributes["month"] = str(time.month)
+            if string_dt != '':
+                if time != '':      
+                    attributes["specific_time"] = str(time.time())
+                if date != '':
+                    attributes["day"] =str(date.day)
+                    attributes["month"] = str(date.month)
+                else:
+                    attributes["day"] =str(time.day)
+                    attributes["month"] = str(time.month)
         else:
             attributes = []
             attributes["sum"] = entry
@@ -192,14 +193,15 @@ class GetPrediction():
             print(time)
             print("\n")
             print(date)   
-            if time != '':      
-                attributes["specific_time"] = str(time.time())
-            if date != '':
-                attributes["day"] =str(date.day)
-                attributes["month"] = str(date.month)
-            else:
-                attributes["day"] =str(time.day)
-                attributes["month"] = str(time.month)
+            if string_dt != '':
+                if time != '':      
+                    attributes["specific_time"] = str(time.time())
+                if date != '':
+                    attributes["day"] =str(date.day)
+                    attributes["month"] = str(date.month)
+                else:
+                    attributes["day"] =str(time.day)
+                    attributes["month"] = str(time.month)
             attributes["sum"] = entry
 
         return attributes
@@ -349,10 +351,10 @@ class OrderingTask():
         print(final_dict)
         return final_dict
             
-# if __name__ == "__main__":
-#     pred = GetPrediction()
-#     text = "remind me to go to school at 5 am tomorrow"
-#     att = pred.predict(text)
-#     for i in att:
-#         print(att[i])
+if __name__ == "__main__":
+    pred = GetPrediction()
+    text = "I want to go to school in every night"
+    att = pred.predict(text)
+    for i in att:
+        print(att[i])
 

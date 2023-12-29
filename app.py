@@ -23,7 +23,8 @@ def predict():
 
         entry = data['entry']
         result = get_prediction_instance.predict(entry)
-        print(entry)
+        print("sum", result['summarize'])
+        
         return jsonify(result)
     except Exception as e:
         return jsonify({'error': str(e)})

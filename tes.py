@@ -77,3 +77,9 @@ class GetDateTime():
         return cal.parseDT(time_string, now)[0]
     
 
+dt = GetDateTime()
+str = "I want to go to school in every night"
+string_dt, date, time = dt.getDateTimeinText(str)  
+print(string_dt)
+print(date)
+print(time)

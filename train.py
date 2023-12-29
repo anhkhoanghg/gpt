@@ -25,7 +25,7 @@ class CustomTrainer(Trainer):
 def train(dataset, model, max_length, temperature):
     training_args = TrainingArguments(
         output_dir="./modelPred/model",
-        num_train_epochs=10,
+        num_train_epochs=100,
         per_device_train_batch_size=1,
         save_steps=10,
         save_total_limit=2,
@@ -107,12 +107,19 @@ dailyTaskDataset = PromptResultMergedDataset(
 dailyTaskDataLoader = DataLoader(dailyTaskDataset, batch_size=64)
 temperature = 0.2
 max_length = 100
+# Load the pre-trained model
+model_path = "D:/KLTN/gpt/modelPred/model/checkpoint-1812600"
+model.load_state_dict(torch.load(f"{model_path}/pytorch_model.bin"))
+
+# Set the model back to training mode
 model.train()
 
+# Define your optimizer (you can change the learning rate as needed)
 optim = Adam(model.parameters(), lr=1e-2)
 
 
 print("training .... ")
 
 train(dailyTaskDataset, model, max_length, temperature)
+
 
